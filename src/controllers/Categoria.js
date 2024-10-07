@@ -1,17 +1,18 @@
 import sequelize from "../configs/database.js";
-// import Product from "../models/Product.js";
 import Categoria from "../models/Categoria.js";
+import validarParametroDeURL from "../helpers/funciones.js";
+// import Product from "../models/Product.js";
 // import { Image } from "../models/Image.js";
 // import { cloudinary } from "../utils/cloudinary.js";
 
 class ControladorCategoria {
   static async crearCategoria(req, res) {
+    const { nombre } = req.body;
+    if (!nombre) {
+      return res.status(500).json(`El nombre de la categoría es requerido`);
+    }
     try {
       await sequelize.transaction(async (transaccion) => {
-        const { nombre } = req.body;
-        if (!nombre) {
-          return res.status(500).json(`El nombre de la categoría es requerido`);
-        }
         const categoria = await Categoria.create(
           {
             nombre,
@@ -48,12 +49,10 @@ class ControladorCategoria {
 
   static async obtenerCategoriaPorId(req, res) {
     try {
-      const parametro = req.params.id;
-      const id = Number(parametro);
-      if (Number.isNaN(id) || !Number.isInteger(id)) {
-        return res
-          .status(500)
-          .json(`El parámetro '${parametro}' no es válido`);
+      const id = req.params.id;
+      const parametroEsValido = validarParametroDeURL(id);
+      if (!parametroEsValido) {
+        return res.status(500).json(`El parámetro '${id}' no es válido`);
       }
       const categoria = await Categoria.findByPk(id, {
         attributes: ["id", "nombre"],
@@ -68,26 +67,22 @@ class ControladorCategoria {
   }
 
   static async modificarCategoriaPorId(req, res) {
+    const id = req.params.id;
+    const parametroEsValido = validarParametroDeURL(id);
+    if (!parametroEsValido) {
+      return res.status(500).json(`El parámetro '${id}' no es válido`);
+    }
+    const { nombre } = req.body;
+    if (!nombre) {
+      return res.status(500).json(`El nombre de la categoría es requerido`);
+    }
+    const categoria = await Categoria.findByPk(id);
+    if (!categoria) {
+      return res.status(404).json(`No existe la categoría con el id: ${id}`);
+    }
     try {
       await sequelize.transaction(async (transaccion) => {
-        const parametro = req.params.id;
-        const id = Number(parametro);
-        if (Number.isNaN(id) || !Number.isInteger(id)) {
-          return res
-            .status(500)
-            .json(`El parámetro '${parametro}' no es válido`);
-        }
-        const { nombre } = req.body;
-        if (!nombre) {
-          return res.status(500).json(`El nombre de la categoría es requerido`);
-        }
-        const categoria = await Categoria.findByPk(id);
-        if (!categoria) {
-          return res
-            .status(404)
-            .json(`No existe la categoría con el id: ${id}`);
-        }
-        categoria.nombre = nombre;
+        await categoria.update({ nombre }, { transaction: transaccion });
         await categoria.save();
         return res.status(200).json(categoria);
       });
@@ -97,20 +92,20 @@ class ControladorCategoria {
   }
 
   static async eliminarCategoriaPorId(req, res) {
+    const id = req.params.id;
+    const parametroEsValido = validarParametroDeURL(id);
+    if (!parametroEsValido) {
+      return res.status(500).json(`El parámetro '${id}' no es válido`);
+    }
+    const categoria = await Categoria.findByPk(id);
+    if (!categoria) {
+      return res.status(404).json(`No existe la categoría con el id: ${id}`);
+    }
     try {
-      const parametro = req.params.id;
-      const id = Number(parametro);
-      if (Number.isNaN(id) || !Number.isInteger(id)) {
-        return res
-          .status(500)
-          .json(`El parámetro '${parametro}' no es válido`);
-      }
-      const categoria = await Categoria.findByPk(id);
-      if (!categoria) {
-        return res.status(404).json(`No existe la categoría con el id: ${id}`);
-      }
-      await categoria.destroy();
-      return res.status(200).json(categoria);
+      await sequelize.transaction(async (transaccion) => {
+        await categoria.destroy({ transaction: transaccion });
+        return res.status(200).json(categoria);
+      });
     } catch (error) {
       return res.status(500).json("Error");
     }
