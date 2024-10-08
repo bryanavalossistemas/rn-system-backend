@@ -7,11 +7,11 @@ import validarParametroDeURL from "../helpers/funciones.js";
 
 class ControladorCategoria {
   static async crearCategoria(req, res) {
-    const { nombre } = req.body;
-    if (!nombre) {
-      return res.status(500).json(`El nombre de la categoría es requerido`);
-    }
     try {
+      const { nombre } = req.body;
+      if (!nombre) {
+        return res.status(500).json(`El nombre de la categoría es requerido`);
+      }
       await sequelize.transaction(async (transaccion) => {
         const categoria = await Categoria.create(
           {
@@ -22,28 +22,22 @@ class ControladorCategoria {
         return res.status(201).json(categoria);
       });
     } catch (error) {
-      return res.status(500).json("Hubo un error");
+      return res.status(500).json(error.message);
     }
   }
 
   static async obtenerTodasLasCategorias(req, res) {
     try {
-      const categorias = await Categoria.findAll({
-        // include: { model: Product, as: "products" },
-        attributes: ["id", "nombre"],
-        order: [["id", "ASC"]],
+      await sequelize.transaction(async (transaccion) => {
+        const categorias = await Categoria.findAll({
+          attributes: ["id", "nombre"],
+          order: [["id", "ASC"]],
+          transaction: transaccion,
+        });
+        return res.status(200).json(categorias);
       });
-      // const filteredProductCategories = categorias.map((productCategory) => {
-      //   return {
-      //     id: productCategory.id,
-      //     name: productCategory.name,
-      //     createdAt: productCategory.createdAt,
-      //     products: productCategory.products.length,
-      //   };
-      // });
-      return res.status(200).json(categorias);
     } catch (error) {
-      return res.status(500).json("Hubo un error");
+      return res.status(500).json(error.message);
     }
   }
 
@@ -62,52 +56,52 @@ class ControladorCategoria {
       }
       return res.status(200).json(categoria);
     } catch (error) {
-      return res.status(500).json("Hubo un error");
+      return res.status(500).json(error.message);
     }
   }
 
   static async modificarCategoriaPorId(req, res) {
-    const id = req.params.id;
-    const parametroEsValido = validarParametroDeURL(id);
-    if (!parametroEsValido) {
-      return res.status(500).json(`El parámetro '${id}' no es válido`);
-    }
-    const { nombre } = req.body;
-    if (!nombre) {
-      return res.status(500).json(`El nombre de la categoría es requerido`);
-    }
-    const categoria = await Categoria.findByPk(id);
-    if (!categoria) {
-      return res.status(404).json(`No existe la categoría con el id: ${id}`);
-    }
     try {
+      const id = req.params.id;
+      const parametroEsValido = validarParametroDeURL(id);
+      if (!parametroEsValido) {
+        return res.status(500).json(`El parámetro '${id}' no es válido`);
+      }
+      const { nombre } = req.body;
+      if (!nombre) {
+        return res.status(500).json(`El nombre de la categoría es requerido`);
+      }
+      const categoria = await Categoria.findByPk(id);
+      if (!categoria) {
+        return res.status(404).json(`No existe la categoría con el id: ${id}`);
+      }
       await sequelize.transaction(async (transaccion) => {
         await categoria.update({ nombre }, { transaction: transaccion });
-        await categoria.save();
+        await categoria.save({ transaction: transaccion });
         return res.status(200).json(categoria);
       });
     } catch (error) {
-      return res.status(500).json("Hubo un error");
+      return res.status(500).json(error.message);
     }
   }
 
   static async eliminarCategoriaPorId(req, res) {
-    const id = req.params.id;
-    const parametroEsValido = validarParametroDeURL(id);
-    if (!parametroEsValido) {
-      return res.status(500).json(`El parámetro '${id}' no es válido`);
-    }
-    const categoria = await Categoria.findByPk(id);
-    if (!categoria) {
-      return res.status(404).json(`No existe la categoría con el id: ${id}`);
-    }
     try {
+      const id = req.params.id;
+      const parametroEsValido = validarParametroDeURL(id);
+      if (!parametroEsValido) {
+        return res.status(500).json(`El parámetro '${id}' no es válido`);
+      }
+      const categoria = await Categoria.findByPk(id);
+      if (!categoria) {
+        return res.status(404).json(`No existe la categoría con el id: ${id}`);
+      }
       await sequelize.transaction(async (transaccion) => {
         await categoria.destroy({ transaction: transaccion });
         return res.status(200).json(categoria);
       });
     } catch (error) {
-      return res.status(500).json("Error");
+      return res.status(500).json(error.message);
     }
   }
 }
