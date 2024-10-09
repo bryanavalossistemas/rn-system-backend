@@ -1,5 +1,5 @@
 import express from "express";
-import ControllerUsuario from "../controllers/Usuario";
+import ControllerUsuario from "../controllers/Usuario.js";
 const router = express.Router();
 
 router.post("/",ControllerUsuario.crearUsuario);
