@@ -10,13 +10,14 @@ class ControllerRol{
             if(!nombre){
                 return res.status(500).json('EL nombre del Rol es requerido')
             }
-            await sequelize.transaction(async(transaction) =>{
-                const rol = await Rol.create(
+            await sequelize.transaction(async(transaccion) =>{
+                const rol = await Role.create(
                 {
                     nombre,
                 },
-                {transaction: transaction}
+                {transaction: transaccion}
             );
+            return res.status(201).json(rol);
 
             });
         } catch (error){
@@ -54,7 +55,7 @@ class ControllerRol{
                 return res.status(404).json(`No existe la marca con el id: ${id}`);
             }
             return res.status(200).json(rol);
-        }catch(error){
+        } catch(error){
             return res.status(500).json(error.message);
         }
 
@@ -70,13 +71,13 @@ class ControllerRol{
             const {nombre} = req.body;
 
             if(!nombre){
-                return res.status(500).json(`El nombre de la marca es requerido`);
+                return res.status(500).json(`El nombre de la rol es requerido`);
             }
             const rol = await Role.findByPk(id);
-            if (!marca){
-                return res.status(404).json(`No existe la marca con el id: ${id}`);
+            if (!rol){
+                return res.status(404).json(`No existe la rol con el id: ${id}`);
             }
-            await sequelize.transaction(async (transaction)=>{
+            await sequelize.transaction(async (transaccion)=>{
                 await rol.update({nombre}, {transaction: transaccion});
                 await rol.save({transaction: transaccion});
                 return res.status(200).json(rol);
@@ -100,7 +101,7 @@ class ControllerRol{
             }
             await sequelize.transaccion(async(transaccion)=>{
                 await rol.destroy({transaction: transaccion});
-                return res.status(200).json(marca);
+                return res.status(200).json(rol);
             });
         } catch(error){
             return res.status(500).json(error.message);

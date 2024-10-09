@@ -11,7 +11,7 @@ class ControllerUsuario{
                 return res.status(500).json('EL nombre del Rol es requerido')
             }
             await sequelize.transaction(async(transaction)=> {
-                const rol = await Usuario.create(
+                const usuario = await Usuario.create(
                     {
                         nombre,
                         usuario,
@@ -19,7 +19,8 @@ class ControllerUsuario{
                         roleId,
                     },
                     {transaction: transaction}
-                )
+                );
+                return res.status(201).json(usuario);
             });
         } catch (error){
             return res.status(500).json(error.message);
@@ -80,9 +81,9 @@ class ControllerUsuario{
         if(!marca){
             return res.status(404).json(`No existe la marca con el id: ${id}`); 
         }
-        await sequelize.transaction(async(transaction)=>{
+        await sequelize.transaction(async(transaccion)=>{
             await usuario.update({nombre}, {transaction: transaccion});
-            await usuario.save({transaction:transaction});
+            await usuario.save({transaction:transaccion});
             return res.status(200).json(usuario);
         });
        }catch(error){
