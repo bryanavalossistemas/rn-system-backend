@@ -3,6 +3,8 @@ import cors from "cors";
 import morgan from "morgan";
 
 import rutasCategoria from './routes/Categoria.js';
+import rutasMarca from './routes/Marca.js';
+import rutasProveedor from './routes/Proveedor.js'
 
 // Configurar el servidor Express
 const app = express();
@@ -18,5 +20,7 @@ app.get("/", (req, res) => {
 
 // Definir las rutas API
 app.use("/api/categorias", rutasCategoria);
+app.use("/api/marcas", rutasMarca);
+app.use("/api/proveedores", rutasProveedor);
 
 export default app;
