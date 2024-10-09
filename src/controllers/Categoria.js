@@ -1,6 +1,7 @@
 import sequelize from "../configs/database.js";
 import Categoria from "../models/Categoria.js";
 import validarParametroDeURL from "../helpers/funciones.js";
+import { Op } from "sequelize";
 // import Product from "../models/Product.js";
 // import { Image } from "../models/Image.js";
 // import { cloudinary } from "../utils/cloudinary.js";
@@ -99,6 +100,29 @@ class ControladorCategoria {
       await sequelize.transaction(async (transaccion) => {
         await categoria.destroy({ transaction: transaccion });
         return res.status(200).json(categoria);
+      });
+    } catch (error) {
+      return res.status(500).json(error.message);
+    }
+  }
+
+  static async obtenerCategoriasPorCadenaDeTexto(req, res) {
+    try {
+      const offset = Number.parseInt(req.query.offset);
+      const limit = Number.parseInt(req.query.limit);
+      const texto = req.query.texto;
+      await sequelize.transaction(async (transaccion) => {
+        const { count, rows } = await Categoria.findAndCountAll({
+          where: {
+            nombre: {
+              [Op.like]: `%${texto}%`,
+            },
+          },
+          offset,
+          limit,
+          transaction: transaccion,
+        });
+        return res.status(200).json({ categorias: rows, cantidad: count });
       });
     } catch (error) {
       return res.status(500).json(error.message);
