@@ -1,0 +1,31 @@
+### CREAR USUARIO
+POST http://localhost:4000/api/usuarios
+Content-Type: application/json
+
+{
+    "nombre": "Bryan Avalos Loa y Pardo Jesus",
+    "usuario": "admin",
+    "contrasenia": "contrasenia",
+    "rolId": 1
+}
+
+### OBTENER TODOS LOS USUARIOS
+GET http://localhost:4000/api/usuarios
+
+### OBTENER USUARIO POR ID
+GET http://localhost:4000/api/usuarios/1
+
+### MODIFICAR USUARIO POR ID
+
+PUT http://localhost:4000/api/usuarios/1
+Content-Type: application/json
+
+{
+    "nombre": "Mauricio Ramirez",
+    "usuario": "admin",
+    "contrasenia": "contrasenia",
+    "rolId": 1
+}
+
+### ELIMINAR USUARIO POR ID
+DELETE http://localhost:4000/api/usuarios/1

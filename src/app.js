@@ -5,11 +5,11 @@ import morgan from "morgan";
 import rutasCategoria from "./routes/Categoria.js";
 import rutasMarca from "./routes/Marca.js";
 import rutasProveedor from "./routes/Proveedor.js";
+import rutasUsuario from "./routes/Usuario.js";
 import rutasRol from "./routes/Rol.js";
-// import rutasUsuario from "./routes/Usuario.js";
+import rutasAdministrador from "./routes/Administrador.js";
+import rutasVendedor from "./routes/Vendedor.js";
 // import rutasCliente from "./routes/Cliente.js";
-// import rutasadmin from "./routes/Administrador.js";
-// import rutasVendedor from "./routes/Vendedor.js";
 /*import rutasVenta from './routes/Venta.js'; */
 
 // Configurar el servidor Express
@@ -29,10 +29,10 @@ app.use("/api/categorias", rutasCategoria);
 app.use("/api/marcas", rutasMarca);
 app.use("/api/proveedores", rutasProveedor);
 app.use("/api/roles", rutasRol);
-// app.use("/api/usuario", rutasUsuario);
-// app.use("/api/admnistrador", rutasadmin);
+app.use("/api/usuarios", rutasUsuario);
+app.use("/api/administrador", rutasAdministrador);
+app.use("api/vendedores", rutasVendedor);
 // app.use("/api/clientes", rutasCliente);
-// app.use("api/vendedor", rutasVendedor);
 /*app.use("/api/ventas", rutasVenta);*/
 
 export default app;

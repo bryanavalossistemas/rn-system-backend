@@ -1,0 +1,38 @@
+### CREAR VENDEDOR
+POST http://localhost:4000/api/administrador/crearVendedor
+Content-Type: application/json
+
+{
+    "nombre": "Cesar Moron Hildebrandt",
+    "usuario": "cesitar",
+    "contrasenia": "contra",
+    "dni": "75011231",
+    "telefono": "91234115",
+    "rolId": 2
+}
+
+### MODIFICAR VENDEDOR POR ID
+PUT http://localhost:4000/api/administrador/modificarVendedor/4
+Content-Type: application/json
+
+{
+    "nombre": "CES",
+    "usuario": "admin",
+    "contrasenia": "contrasenia",
+    "dni": "75013015",
+    "telefono": "915115894",
+    "rolId": 2
+}
+
+### MODIFICAR DATOS DEL ADMINISTRADOR POR ID
+PUT http://localhost:4000/api/administrador/1
+Content-Type: application/json
+
+{
+    "nombre": "Bryan Avalos Loa y Pardo Jesus administrador modificado",
+    "usuario": "admin",
+    "contrasenia": "contrasenia"
+}
+
+### OBTENER TODOS LOS VENDEDORES
+GET  http://localhost:4000/api/administrador/vendedores

@@ -1,11 +1,11 @@
-// import express from "express";
-// import ControllerUsuario from "../controllers/Usuario.js";
-// const router = express.Router();
+import express from "express";
+import ControladorUsuario from "../controllers/Usuario.js";
+const router = express.Router();
 
-// router.post("/",ControllerUsuario.crearUsuario);
-// router.post("/",ControllerUsuario.obtenerUsuario);
-// router.get("/:id",ControllerUsuario.obtenerUsuarioId);
-// router.put("/:id",ControllerUsuario.modificarUsuarioId);
-// router.delete("/:id",ControllerUsuario.eliminarUsuarioporId);
+// router.post("/", ControladorUsuario.crearUsuario);
+// router.get("/", ControladorUsuario.obtenerTodosLosUsuarios);
+// router.get("/:id", ControladorUsuario.obtenerUsuarioPorId);
+// router.put("/:id", ControladorUsuario.modificarUsuarioId);
+// router.delete("/:id", ControladorUsuario.eliminarUsuarioPorId);
 
-// export default router;
+export default router;

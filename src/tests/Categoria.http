@@ -6,7 +6,7 @@ Content-Type: application/json
     "nombre": "categoria"
 }
 
-### OBTENER TODOS LOS ROLES
+### OBTENER TODOS LAS CATEGORIAS
 GET http://localhost:4000/api/categorias
 
 ### OBTENER CATEGORIA POR ID

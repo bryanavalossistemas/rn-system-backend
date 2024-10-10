@@ -1,11 +1,16 @@
-// import express from "express";
-// import ControllerAdmin from "../controllers/Administrador.js";
-// const router = express.Router();
+import express from "express";
+import ControladorAdministrador from "../controllers/Administrador.js";
+const router = express.Router();
 
-// router.post("/",ControllerAdmin.crearAdministrador);
-// router.post("/",ControllerAdmin.obtenerAdministrador);
-// router.get("/:id",ControllerAdmin.obtenerAdministradorId);
-// router.put("/:id",ControllerAdmin.modificarAdministradorId);
-// router.delete("/:id",ControllerAdmin.eliminarAdministradorporId);
+router.post("/crearVendedor", ControladorAdministrador.crearVendedor);
+router.put(
+  "/modificarVendedor/:id",
+  ControladorAdministrador.modificarVendedorPorId
+);
+router.put(
+  "/:id",
+  ControladorAdministrador.modificarDatosDelAdministradorPorId
+);
+router.get("/vendedores", ControladorAdministrador.obtenerTodosLosVendedores);
 
-// export default router;
+export default router;

@@ -1,5 +1,6 @@
 import DataTypes from "sequelize";
 import sequelize from "../configs/database.js";
+// import Usuario from "./Usuario.js";
 
 const Rol = sequelize.define(
   "Rol",
@@ -20,4 +21,5 @@ const Rol = sequelize.define(
     freezeTableName: true,
   }
 );
+
 export default Rol;
