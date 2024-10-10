@@ -1,0 +1,25 @@
+### CREAR ROL
+POST http://localhost:4000/api/roles
+Content-Type: application/json
+
+{
+    "nombre": "admin"
+}
+
+### OBTENER TODOS LOS ROLES
+GET http://localhost:4000/api/roles
+
+### OBTENER ROL POR ID
+GET http://localhost:4000/api/roles/1
+
+### MODIFICAR ROL POR ID
+
+PUT http://localhost:4000/api/roles/1
+Content-Type: application/json
+
+{
+    "nombre": "admin modificado"
+}
+
+### ELIMINAR ROL POR ID
+DELETE http://localhost:4000/api/roles/1

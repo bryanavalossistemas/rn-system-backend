@@ -3,17 +3,16 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // Credenciales de la base de datos
-const database = 'rn';
-const username = 'postgres';
-const password = 'admin';
-const host = 'localhost';
-const port = '5432';
-const dialect = 'postgres'
+const database = process.env.DB_NAME;
+const username = process.env.DB_USERNAME;
+const password = process.env.DB_PASSWORD;
+const host = process.env.DB_HOST;
+const port = process.env.DB_PORT;
 
 const sequelize = new Sequelize(database, username, password, {
   host: host,
   port: port,
-  dialect: dialect,
+  dialect: "postgres",
 });
 
 export default sequelize;

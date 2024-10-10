@@ -1,11 +1,11 @@
 import express from "express";
-import ControllerRol from "../controllers/Rol.js";
+import ControladorRol from "../controllers/Rol.js";
 const router = express.Router();
 
-router.post("/",ControllerRol.crearRol);
-router.get("/", ControllerRol.obtenerRoles);
-router.get("/:id",ControllerRol.obtenerRolId);
-router.put("/:id",ControllerRol.modificarRolId );
-router.delete("/:id",ControllerRol.eliminarRolporId );
+router.post("/", ControladorRol.crearRol);
+router.get("/", ControladorRol.obtenerTodosLosRoles);
+router.get("/:id", ControladorRol.obtenerRolPorId);
+router.put("/:id", ControladorRol.modificarRolPorId);
+router.delete("/:id", ControladorRol.eliminarRolPorId);
 
 export default router;
