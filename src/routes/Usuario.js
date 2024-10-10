@@ -5,7 +5,7 @@ const router = express.Router();
 router.post("/",ControllerUsuario.crearUsuario);
 router.post("/",ControllerUsuario.obtenerUsuario);
 router.get("/:id",ControllerUsuario.obtenerUsuarioId);
-router.put("/:id",ControllerUsuario.modificarRolId);
-router.delete("/:id",ControllerUsuario.eliminarRolporId);
+router.put("/:id",ControllerUsuario.modificarUsuarioId);
+router.delete("/:id",ControllerUsuario.eliminarUsuarioporId);
 
 export default router;

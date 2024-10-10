@@ -8,7 +8,7 @@ async function main() {
     const init = process.argv[2];
 
     if (init) await sequelize.sync({ force: true });
-    else await sequelize.sync({ force: false });
+    else await sequelize.sync({ force: false }); 
 
     console.log(colors.blue.bold("CONEXIÓN EXITOSA A LA BASE DE DATOS"));
 

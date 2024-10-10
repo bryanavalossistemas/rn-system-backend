@@ -2,8 +2,8 @@ import DataTypes from "sequelize";
 import sequelize from "../configs/database.js";
 
 
-const Role = sequelize.define(
-  "Role",
+const Rol = sequelize.define(
+  "Rol",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -23,4 +23,4 @@ const Role = sequelize.define(
 )
 ;
 
-export default Role;
+export default Rol;

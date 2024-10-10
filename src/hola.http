@@ -1,0 +1,13 @@
+### Solicitud GET
+GET http://localhost:4000/api/rol
+
+###
+GET http://localhost:4000/api/clientes 
+
+###
+POST http://localhost:4000/api/rol
+Content-Type: application/json
+
+{
+    "nombre": "admin",
+}

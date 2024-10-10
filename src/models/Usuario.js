@@ -1,6 +1,8 @@
 import DataTypes from "sequelize";
 import sequelize from "../configs/database.js";
 
+import Rol from './Rol.js'
+
 
 const Usuario = sequelize.define(
   "Usuario",
@@ -23,7 +25,7 @@ const Usuario = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    role_id: {
+    rol_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -35,7 +37,7 @@ const Usuario = sequelize.define(
 )
 
 Usuario.belongsTo(Rol, {
-    foreignKey: 'role_id',
+    foreignKey: 'rol_id',
     targetId: 'id'
 });
 ;

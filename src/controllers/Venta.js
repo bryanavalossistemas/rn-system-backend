@@ -140,4 +140,4 @@ class ControladorVenta {
 }
 
 export default ControladorVenta;
- */
+*/

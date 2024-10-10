@@ -8,7 +8,9 @@ import rutasProveedor from './routes/Proveedor.js';
 import rutasRol from './routes/Rol.js';
 import rutasUsuario from './routes/Usuario.js';
 import rutasCliente from './routes/Cliente.js';
-/* import rutasVenta from './routes/Venta.js'; */
+import rutasadmin from './routes/Administrador.js';
+import rutasVendedor from './routes/Vendedor.js';
+/*import rutasVenta from './routes/Venta.js'; */ 
 
 // Configurar el servidor Express
 const app = express();
@@ -28,7 +30,9 @@ app.use("/api/marcas", rutasMarca);
 app.use("/api/proveedores", rutasProveedor);
 app.use("/api/rol", rutasRol);
 app.use("/api/usuario", rutasUsuario);
+app.use("/api/admnistrador", rutasadmin);
 app.use("/api/clientes", rutasCliente);
-/* app.use("/api/ventas", rutasVenta); */
+app.use("api/vendedor", rutasVendedor);
+/*app.use("/api/ventas", rutasVenta);*/ 
 
 export default app;
