@@ -1,6 +1,6 @@
 import app from "./app.js";
 import colors from "colors";
-import sequelize from "./configs/database.js";
+import sequelize from "./configuraciones/BaseDeDatos.js";
 
 // Funcion principal
 async function main() {

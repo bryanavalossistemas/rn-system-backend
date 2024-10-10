@@ -2,14 +2,14 @@ import cors from "cors";
 import express from "express";
 import morgan from "morgan";
 
-import rutasCategoria from "./routes/Categoria.js";
-import rutasMarca from "./routes/Marca.js";
-import rutasProveedor from "./routes/Proveedor.js";
-import rutasUsuario from "./routes/Usuario.js";
-import rutasRol from "./routes/Rol.js";
-import rutasAdministrador from "./routes/Administrador.js";
-import rutasVendedor from "./routes/Vendedor.js";
-import rutasCompra from "./routes/Compra.js";
+import rutasCategoria from "./rutas/Categoria.js";
+import rutasMarca from "./rutas/Marca.js";
+import rutasProveedor from "./rutas/Proveedor.js";
+import rutasUsuario from "./rutas/Usuario.js";
+import rutasRol from "./rutas/Rol.js";
+import rutasAdministrador from "./rutas/Administrador.js";
+import rutasVendedor from "./rutas/Vendedor.js";
+import rutasCompra from "./rutas/Compra.js";
 // import rutasCliente from "./routes/Cliente.js";
 /*import rutasVenta from './routes/Venta.js'; */
 
