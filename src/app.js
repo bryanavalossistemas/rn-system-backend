@@ -9,6 +9,7 @@ import rutasUsuario from "./routes/Usuario.js";
 import rutasRol from "./routes/Rol.js";
 import rutasAdministrador from "./routes/Administrador.js";
 import rutasVendedor from "./routes/Vendedor.js";
+import rutasCompra from "./routes/Compra.js";
 // import rutasCliente from "./routes/Cliente.js";
 /*import rutasVenta from './routes/Venta.js'; */
 
@@ -32,6 +33,7 @@ app.use("/api/roles", rutasRol);
 app.use("/api/usuarios", rutasUsuario);
 app.use("/api/administrador", rutasAdministrador);
 app.use("api/vendedores", rutasVendedor);
+app.use("api/compras", rutasCompra);
 // app.use("/api/clientes", rutasCliente);
 /*app.use("/api/ventas", rutasVenta);*/
 
