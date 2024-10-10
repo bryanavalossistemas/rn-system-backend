@@ -4,8 +4,8 @@ class ControladorCategoria {
   static async crearCategoria(req, res) {
     try {
       const { nombre } = req.body;
-      const nuevoCategoria = await servicioCategoria.crearCategoria(nombre);
-      res.status(201).json(nuevoCategoria);
+      const nuevaCategoria = await servicioCategoria.crearCategoria(nombre);
+      res.status(201).json(nuevaCategoria);
     } catch (error) {
       res.status(400).json({ message: error.message });
     }

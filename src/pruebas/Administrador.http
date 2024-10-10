@@ -1,27 +1,47 @@
-### CREAR VENDEDOR
-POST http://localhost:4000/api/administrador/crearVendedor
+### CREAR ADMINISTRADOR
+POST http://localhost:4000/api/administradores
 Content-Type: application/json
 
 {
-    "nombre": "Cesar Moron Hildebrandt",
-    "usuario": "cesitar",
-    "contrasenia": "contra",
-    "dni": "75011231",
-    "telefono": "91234115",
-    "rolId": 2
+    "nombre": "Nombre del administrador",
+    "usuario": "usuario",
+    "contrasenia": "contrasenia"
 }
 
-### MODIFICAR VENDEDOR POR ID
-PUT http://localhost:4000/api/administrador/modificarVendedor/4
+### ACTUALIZAR ADMINISTRADOR POR ID
+PUT http://localhost:4000/api/administradores/actualizar/1
 Content-Type: application/json
 
 {
-    "nombre": "CES",
-    "usuario": "admin",
+    "nombre": "Nuevo nombre de administrador",
+    "usuario": "nuevo usuario",
+    "contrasenia": "nueva contra",
+    "dni": "75013015asd",
+    "telefono": "915115894asd"
+}
+
+### CREAR VENDEDOR
+POST http://localhost:4000/api/administradores/vendedores/crear
+Content-Type: application/json
+
+{
+    "nombre": "Nombre del vendedor",
+    "usuario": "usuario",
     "contrasenia": "contrasenia",
     "dni": "75013015",
-    "telefono": "915115894",
-    "rolId": 2
+    "telefono": "915115894"
+}
+
+### ACTUALIZAR VENDEDOR POR ID
+PUT http://localhost:4000/api/administradores/vendedores/actualizar/1
+Content-Type: application/json
+
+{
+    "nombre": "Dimitri el rcsm",
+    "usuario": "dimi",
+    "contrasenia": "contrase",
+    "dni": "75013015",
+    "telefono": "915115894"
 }
 
 ### MODIFICAR DATOS DEL ADMINISTRADOR POR ID

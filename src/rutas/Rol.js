@@ -3,9 +3,9 @@ import ControladorRol from "../controladores/Rol.js";
 const router = express.Router();
 
 router.post("/", ControladorRol.crearRol);
-router.get("/", ControladorRol.obtenerTodosLosRoles);
+router.get("/", ControladorRol.obtenerRoles);
 router.get("/:id", ControladorRol.obtenerRolPorId);
-router.put("/:id", ControladorRol.modificarRolPorId);
-router.delete("/:id", ControladorRol.eliminarRolPorId);
+router.put("/:id", ControladorRol.actualizarRol);
+router.delete("/:id", ControladorRol.eliminarRol);
 
 export default router;

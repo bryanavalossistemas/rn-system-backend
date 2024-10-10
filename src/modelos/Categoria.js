@@ -1,6 +1,5 @@
 import sequelize from "../configuraciones/BaseDeDatos.js";
 import DataTypes from "sequelize";
-// import Product from "./Product.js";
 
 const ModeloCategoria = sequelize.define(
   "Categoria",
@@ -21,10 +20,5 @@ const ModeloCategoria = sequelize.define(
     freezeTableName: true,
   }
 );
-
-// Categoria.hasMany(Product, {
-//   foreignKey: "categoryId",
-//   as: "products",
-// });
 
 export default ModeloCategoria;

@@ -1,8 +1,7 @@
 import DataTypes from "sequelize";
 import sequelize from "../configuraciones/BaseDeDatos.js";
-// import Usuario from "./Usuario.js";
 
-const Rol = sequelize.define(
+const ModeloRol = sequelize.define(
   "Rol",
   {
     id: {
@@ -22,4 +21,4 @@ const Rol = sequelize.define(
   }
 );
 
-export default Rol;
+export default ModeloRol;

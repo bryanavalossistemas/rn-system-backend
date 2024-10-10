@@ -1,8 +1,8 @@
 import DataTypes from "sequelize";
 import sequelize from "../configuraciones/BaseDeDatos.js";
-import Usuario from "./Usuario.js";
+import ModeloUsuario from "./Usuario.js";
 
-const Administrador = sequelize.define(
+const ModeloAdministrador = sequelize.define(
   "Administrador",
   {
     id: {
@@ -22,9 +22,9 @@ const Administrador = sequelize.define(
   }
 );
 
-Administrador.belongsTo(Usuario, {
+ModeloAdministrador.belongsTo(ModeloUsuario, {
   foreignKey: "usuarioId",
   as: "usuario",
 });
 
-export default Administrador;
+export default ModeloAdministrador;

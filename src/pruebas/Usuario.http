@@ -4,8 +4,8 @@ Content-Type: application/json
 
 {
     "nombre": "Bryan Avalos Loa y Pardo Jesus",
-    "usuario": "admin",
-    "contrasenia": "contrasenia",
+    "usuario": "qwerson",
+    "contrasenia": "dakota",
     "rolId": 1
 }
 
@@ -21,11 +21,20 @@ PUT http://localhost:4000/api/usuarios/1
 Content-Type: application/json
 
 {
-    "nombre": "Mauricio Ramirez",
-    "usuario": "admin",
-    "contrasenia": "contrasenia",
+    "nombre": "Mauricio Ramirez Milla",
+    "usuario": "mauriXtreme",
+    "contrasenia": "george",
     "rolId": 1
 }
 
 ### ELIMINAR USUARIO POR ID
 DELETE http://localhost:4000/api/usuarios/1
+
+### INICIAR SESION
+POST  http://localhost:4000/api/usuarios/autenticacion/iniciarSesion
+Content-Type: application/json
+
+{
+    "usuario": "usuario",
+    "contrasenia": "contrasenia"
+}

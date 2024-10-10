@@ -31,7 +31,7 @@ app.use("/api/marcas", rutasMarca);
 app.use("/api/proveedores", rutasProveedor);
 app.use("/api/roles", rutasRol);
 app.use("/api/usuarios", rutasUsuario);
-app.use("/api/administrador", rutasAdministrador);
+app.use("/api/administradores", rutasAdministrador);
 app.use("api/vendedores", rutasVendedor);
 app.use("api/compras", rutasCompra);
 // app.use("/api/clientes", rutasCliente);
