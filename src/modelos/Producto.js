@@ -1,10 +1,10 @@
 import sequelize from "../configuraciones/BaseDeDatos.js";
 import DataTypes from "sequelize";
-import Categoria from "./Categoria.js";
-import Marca from "./Marca.js";
-import ImagenProducto from "./ImagenProducto.js";
+import ModeloCategoria from "./Categoria.js";
+import ModeloMarca from "./Marca.js";
+import ModeloImagenProducto from "./ImagenProducto.js";
 
-const Productos = sequelize.define(
+const ModeloProducto = sequelize.define(
   "Producto",
   {
     id: {
@@ -31,26 +31,14 @@ const Productos = sequelize.define(
     },
     categoriaId: {
       type: DataTypes.INTEGER,
-      references: {
-        model: Categoria,
-        key: "id",
-      },
       allowNull: false,
     },
     marcaId: {
       type: DataTypes.INTEGER,
-      references: {
-        model: Marca,
-        key: "id",
-      },
       allowNull: false,
     },
     imagenProductoId: {
       type: DataTypes.INTEGER,
-      references: {
-        model: ImagenProducto,
-        key: "id",
-      },
       allowNull: false,
     },
   },
@@ -60,8 +48,15 @@ const Productos = sequelize.define(
   }
 );
 
-Productos.belongsTo(Categoria, { foreignKey: "categoriaId", as: "Categoria" });
-Productos.belongsTo(Marca, { foreignKey: "marcaId", as: "Marca" });
-Productos.belongsTo(ImagenProducto, { foreignKey: "imagenProductoId", as: "ImagenProducto"});
+ModeloProducto.belongsTo(ModeloCategoria, {
+  foreignKey: "categoriaId",
+  as: "categoria",
+});
+ModeloProducto.belongsTo(ModeloMarca, { foreignKey: "marcaId", as: "marca" });
+ModeloProducto.belongsTo(ModeloImagenProducto, {
+  foreignKey: "imagenProductoId",
+  as: "imagenProducto",
+  onDelete: "NO ACTION",
+});
 
-export default Productos;
+export default ModeloProducto;

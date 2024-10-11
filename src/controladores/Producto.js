@@ -3,17 +3,10 @@ import servicioProducto from "../servicios/Producto.js";
 class ControladorProducto {
   static async crearProducto(req, res) {
     try {
-      const {
-        nombre,
-        precioCosto,
-        precioVenta,
-        stock,
-        categoriaId,
-        marcaId,
-        imagenProductoId,
-      } = req.body;
+      const { file } = req;
+      const { nombre, precioCosto, precioVenta, stock, categoriaId, marcaId } =
+        req.body;
 
-      // Crear el producto con las relaciones ya existentes
       const nuevoProducto = await servicioProducto.crearProducto(
         nombre,
         precioCosto,
@@ -21,7 +14,7 @@ class ControladorProducto {
         stock,
         categoriaId,
         marcaId,
-        imagenProductoId
+        file
       );
       res.status(201).json(nuevoProducto);
     } catch (error) {
@@ -54,17 +47,10 @@ class ControladorProducto {
 
   static async actualizarProducto(req, res) {
     try {
-      const {
-        nombre,
-        precioCosto,
-        precioVenta,
-        stock,
-        categoriaId,
-        marcaId,
-        imagenProductoId,
-      } = req.body;
+      const { file } = req;
+      const { nombre, precioCosto, precioVenta, stock, categoriaId, marcaId } =
+        req.body;
 
-      // Actualizar el producto con las relaciones ya existentes
       const productoActualizado = await servicioProducto.actualizarProducto(
         req.params.id,
         nombre,
@@ -73,7 +59,7 @@ class ControladorProducto {
         stock,
         categoriaId,
         marcaId,
-        imagenProductoId
+        file
       );
       res.json(productoActualizado);
     } catch (error) {

@@ -1,8 +1,8 @@
 import sequelize from "../configuraciones/BaseDeDatos.js";
 import DataTypes from "sequelize";
 
-const ImagenProducto = sequelize.define(
-  "ImagenProductos",
+const ModeloImagenProducto = sequelize.define(
+  "ImagenProducto",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -14,15 +14,15 @@ const ImagenProducto = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    publicidad: {
+    publicId: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   },
   {
-    timestamps: false, // Esto NO agregará automáticamente createdAt y updatedAt
+    timestamps: false,
     freezeTableName: true,
   }
 );
 
-export default ImagenProducto;
+export default ModeloImagenProducto;

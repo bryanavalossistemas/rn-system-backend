@@ -28,4 +28,4 @@ Content-Type: application/json
 }
 
 ###ELIMINAR IMAGEN 2
-DELETE http://localhost:4000/api/imagenproducto/2/
+DELETE http://localhost:4000/api/imagenproducto/1

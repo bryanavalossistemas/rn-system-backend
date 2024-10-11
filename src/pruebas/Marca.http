@@ -1,0 +1,7 @@
+### CREAR MARCA
+POST http://localhost:4000/api/marcas
+Content-Type: application/json
+
+{
+    "nombre": "marca 1"
+}

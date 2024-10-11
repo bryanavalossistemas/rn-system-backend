@@ -1,10 +1,10 @@
-import repositorioimagenproductos from "../repositorios/ImagenProducto.js";
+import repositorioImagenProducto from "../repositorios/ImagenProducto.js";
 
 class ServicioImagenProducto {
-  async crearImagenProducto(url, publicidad) {
+  async crearImagenProducto(url, publicId) {
     try {
-      const nuevaImagenProducto = { url, publicidad };
-      return await repositorioimagenproductos.agregar(nuevaImagenProducto);
+      const nuevaImagenProducto = { url, publicId };
+      return await repositorioImagenProducto.agregar(nuevaImagenProducto);
     } catch (error) {
       throw new Error(
         `Error al crear la imagen del producto: ${error.message}`
@@ -14,7 +14,7 @@ class ServicioImagenProducto {
 
   async obtenerImagenesProducto() {
     try {
-      return await repositorioimagenproductos.obtenerTodos();
+      return await repositorioImagenProducto.obtenerTodos();
     } catch (error) {
       throw new Error(
         `Error al obtener las imágenes de productos: ${error.message}`
@@ -24,7 +24,7 @@ class ServicioImagenProducto {
 
   async obtenerImagenProductoPorId(id) {
     try {
-      const imagenProducto = await repositorioimagenproductos.obtenerPorId(id);
+      const imagenProducto = await repositorioImagenProducto.obtenerPorId(id);
       if (!imagenProducto) throw new Error("Imagen de producto no encontrada");
       return imagenProducto;
     } catch (error) {
@@ -37,7 +37,7 @@ class ServicioImagenProducto {
   async actualizarImagenProducto(id, url, publicidad) {
     try {
       const datosActualizados = { url, publicidad };
-      return await repositorioimagenproductos.actualizar(id, datosActualizados);
+      return await repositorioImagenProducto.actualizar(id, datosActualizados);
     } catch (error) {
       throw new Error(
         `Error al actualizar la imagen del producto con ID ${id}: ${error.message}`
@@ -47,7 +47,7 @@ class ServicioImagenProducto {
 
   async eliminarImagenProducto(id) {
     try {
-      const imagenProductoEliminada = await repositorioimagenproductos.eliminar(
+      const imagenProductoEliminada = await repositorioImagenProducto.eliminar(
         id
       );
       if (!imagenProductoEliminada)

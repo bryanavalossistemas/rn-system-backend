@@ -1,12 +1,12 @@
 import RepositorioBase from "./Base.js";
-import ModeloImagenProductos from "../modelos/ImagenProducto.js";
+import ModeloImagenProducto from "../modelos/ImagenProducto.js";
 
-class RepositorioImagenProductos extends RepositorioBase {
+class RepositorioImagenProducto extends RepositorioBase {
   constructor() {
-    super(ModeloImagenProductos);
+    super(ModeloImagenProducto);
   }
 }
 
-const repositorioimagenproductos = new RepositorioImagenProductos();
+const repositorioImagenProducto = new RepositorioImagenProducto();
 
-export default repositorioimagenproductos;
+export default repositorioImagenProducto;

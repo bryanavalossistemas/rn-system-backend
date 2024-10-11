@@ -1,7 +1,7 @@
 import sequelize from "../configuraciones/BaseDeDatos.js";
 import DataTypes from "sequelize";
 
-const Marca = sequelize.define(
+const ModeloMarca = sequelize.define(
   "Marca",
   {
     id: {
@@ -21,4 +21,4 @@ const Marca = sequelize.define(
   }
 );
 
-export default Marca;
+export default ModeloMarca;

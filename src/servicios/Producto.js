@@ -1,7 +1,8 @@
-import repositorioproductos from "../repositorios/Producto.js";
+import repositorioProductos from "../repositorios/Producto.js";
 import repositorioCategoria from "../repositorios/Categoria.js";
 import repositorioMarca from "../repositorios/Marca.js";
 import repositorioImagenProducto from "../repositorios/ImagenProducto.js";
+import { cloudinary } from "../utilidades/Cloudinary.js";
 
 class ServicioProducto {
   async crearProducto(
@@ -11,15 +12,11 @@ class ServicioProducto {
     stock,
     categoriaId,
     marcaId,
-    imagenProductoId
+    file
   ) {
     try {
-      // Verificar si las relaciones existen
       const categoria = await repositorioCategoria.obtenerPorId(categoriaId);
       const marca = await repositorioMarca.obtenerPorId(marcaId);
-      const imagenProducto = await repositorioImagenProducto.obtenerPorId(
-        imagenProductoId
-      );
 
       if (!categoria) {
         throw new Error("La categoria especificada no existe.");
@@ -27,9 +24,15 @@ class ServicioProducto {
       if (!marca) {
         throw new Error("La marca especificada no existe.");
       }
-      if (!imagenProducto) {
-        throw new Error("La imagen de producto especificada no existe.");
-      }
+
+      const result = await cloudinary.uploader.upload(file.path);
+      const nuevaImagenProducto = {
+        url: result.url,
+        publicId: result.public_id,
+      };
+      const imagenProducto = await repositorioImagenProducto.agregar(
+        nuevaImagenProducto
+      );
 
       const nuevoProducto = {
         nombre,
@@ -38,10 +41,10 @@ class ServicioProducto {
         stock,
         categoriaId,
         marcaId,
-        imagenProductoId,
+        imagenProductoId: imagenProducto.id,
       };
 
-      return await repositorioproductos.agregar(nuevoProducto);
+      return await repositorioProductos.agregar(nuevoProducto);
     } catch (error) {
       throw new Error(`Error al crear el producto: ${error.message}`);
     }
@@ -49,7 +52,7 @@ class ServicioProducto {
 
   async obtenerProductos() {
     try {
-      return await repositorioproductos.obtenerTodos();
+      return await repositorioProductos.obtenerTodos();
     } catch (error) {
       throw new Error(`Error al obtener los productos: ${error.message}`);
     }
@@ -57,7 +60,7 @@ class ServicioProducto {
 
   async obtenerProductoPorId(id) {
     try {
-      const producto = await repositorioproductos.obtenerPorId(id);
+      const producto = await repositorioProductos.obtenerPorId(id);
       if (!producto) throw new Error("Producto no encontrado");
       return producto;
     } catch (error) {
@@ -75,26 +78,49 @@ class ServicioProducto {
     stock,
     categoriaId,
     marcaId,
-    imagenProductoId
+    file
   ) {
     try {
-      // Verificar si las relaciones existen antes de actualizar
       const categoria = await repositorioCategoria.obtenerPorId(categoriaId);
       const marca = await repositorioMarca.obtenerPorId(marcaId);
-      const imagenProducto = await repositorioImagenProducto.obtenerPorId(
-        imagenProductoId
-      );
-
       if (!categoria) {
         throw new Error("La categoria especificada no existe.");
       }
       if (!marca) {
         throw new Error("La marca especificada no existe.");
       }
-      if (!imagenProducto) {
-        throw new Error("La imagen de producto especificada no existe.");
-      }
+      if (file) {
+        const producto = await repositorioProductos.obtenerPorId(id);
+        const imagenProducto = await repositorioImagenProducto.obtenerPorId(
+          producto.imagenProductoId
+        );
+        await cloudinary.uploader.destroy(imagenProducto.publicId);
 
+        const result = await cloudinary.uploader.upload(file.path);
+        const nuevaImagenProducto = {
+          url: result.url,
+          publicId: result.public_id,
+        };
+        const imagenProductoNuevo = await repositorioImagenProducto.agregar(
+          nuevaImagenProducto
+        );
+        const datosActualizados = {
+          nombre,
+          precioCosto,
+          precioVenta,
+          stock,
+          categoriaId,
+          marcaId,
+          imagenProductoId: imagenProductoNuevo.id,
+        };
+        const productoActualizado = await repositorioProductos.actualizar(
+          id,
+          datosActualizados
+        );
+        repositorioImagenProducto.eliminar(imagenProducto.id);
+
+        return await productoActualizado;
+      }
       const datosActualizados = {
         nombre,
         precioCosto,
@@ -102,10 +128,8 @@ class ServicioProducto {
         stock,
         categoriaId,
         marcaId,
-        imagenProductoId,
       };
-
-      return await repositorioproductos.actualizar(id, datosActualizados);
+      return await repositorioProductos.actualizar(id, datosActualizados);
     } catch (error) {
       throw new Error(
         `Error al actualizar el producto con ID ${id}: ${error.message}`
@@ -115,7 +139,7 @@ class ServicioProducto {
 
   async eliminarProducto(id) {
     try {
-      const productoEliminado = await repositorioproductos.eliminar(id);
+      const productoEliminado = await repositorioProductos.eliminar(id);
       if (!productoEliminado)
         throw new Error("Producto no encontrado para eliminar");
       return productoEliminado;

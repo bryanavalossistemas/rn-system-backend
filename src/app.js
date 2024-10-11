@@ -40,7 +40,7 @@ app.use("/api/compra", rutasCompra);
 app.use("/api/clientes", rutasCliente);
 app.use("/api/ventas", rutasVenta);
 app.use("/api/detalleventas", rutasDetalleVenta);
-app.use("/api/producto", rutasProducto);
+app.use("/api/productos", rutasProducto);
 app.use("/api/imagenproducto", rutasImagenProducto);
 
 export default app;
