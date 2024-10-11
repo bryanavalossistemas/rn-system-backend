@@ -70,9 +70,13 @@ class ServicioUsuario {
       if (!contraseniaEsValida) {
         throw new Error("Datos no válidos");
       }
-      return generarJWT({ usuarioId: usuarioEncontrado.id });
+      return {
+        ok: true,
+        token: generarJWT({ usuarioId: usuarioEncontrado.id }),
+        rolId: usuarioEncontrado.rolId,
+      };
     } catch (error) {
-      return res.sendStatus(500);
+      throw new Error(`Error al iniciar sesión: ${error.message}`);
     }
   }
 }

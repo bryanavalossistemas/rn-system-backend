@@ -56,8 +56,15 @@ class ServicioAdministrador {
 
   async actualizarVendedor(id, nombre, usuario, contrasenia, dni, telefono) {
     try {
+      if (contrasenia) {
+        contrasenia = await encriptarContraseña(contrasenia);
+      }
       const vendedor = await repositorioVendedor.obtenerPorId(id);
-      const datosUsuarioActualizados = { nombre, usuario, contrasenia };
+      const datosUsuarioActualizados = {
+        nombre,
+        usuario,
+        contrasenia: contrasenia || undefined,
+      };
       await repositorioUsuario.actualizar(
         vendedor.usuarioId,
         datosUsuarioActualizados
@@ -69,6 +76,19 @@ class ServicioAdministrador {
       );
     } catch (error) {
       throw new Error(`Error al actualizar el vendedor: ${error.message}`);
+    }
+  }
+
+  async eliminarVendedor(id) {
+    try {
+      const vendedorEliminado = await repositorioVendedor.eliminar(id);
+      if (!vendedorEliminado)
+        throw new Error("Vendedor no encontrado para eliminar");
+      return vendedorEliminado;
+    } catch (error) {
+      throw new Error(
+        `Error al eliminar el vendedor con ID ${id}: ${error.message}`
+      );
     }
   }
 }

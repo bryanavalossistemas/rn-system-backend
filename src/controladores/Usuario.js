@@ -67,7 +67,15 @@ class ControladorUsuario {
       const token = await servicioUsuario.iniciarSesion(usuario, contrasenia);
       res.json(token);
     } catch (error) {
-      res.status(404).json({ message: error.message });
+      res.status(404).json({ ok: false, message: error.message });
+    }
+  }
+
+  static async obtenerUsuario(req, res) {
+    try {
+      res.json(req.user);
+    } catch (error) {
+      res.status(404).json({ ok: false, message: error.message });
     }
   }
 }

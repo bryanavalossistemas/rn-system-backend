@@ -1,6 +1,4 @@
-
 import repositoriocompras from "../repositorios/Compra.js";
-
 
 class ServicioCompras {
   async crearCompra(total, fecha, proveedorId) {
@@ -42,7 +40,6 @@ class ServicioCompras {
       );
     }
   }
-
 }
 
 const servicioCompras = new ServicioCompras();

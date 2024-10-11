@@ -64,6 +64,17 @@ class ControladorAdministrador {
       res.status(400).json({ message: error.message });
     }
   }
+
+  static async eliminarVendedor(req, res) {
+    try {
+      const vendedorEliminado = await servicioAdministrador.eliminarVendedor(
+        req.params.id
+      );
+      res.json(vendedorEliminado);
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  }
 }
 
 export default ControladorAdministrador;
