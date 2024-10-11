@@ -1,12 +1,12 @@
 import express from "express";
-import ControllerVenta from "../controllers/Venta.js";
+import ControladorVenta from "../controladores/Venta.js";
 
 const router = express.Router();
 
-router.post("/", ControllerVenta.crearVenta);
-router.get("/", ControllerVenta.obtenerVentas);
-router.get("/:id", ControllerVenta.obtenerVentaPorId);
-router.put("/:id", ControllerVenta.modificarVentaPorId);
-router.delete("/:id", ControllerVenta.eliminarVentaPorId);
+router.post("/", ControladorVenta.crearVenta);
+router.get("/", ControladorVenta.obtenerVentas);
+router.get("/:id", ControladorVenta.obtenerVentaPorId);
+router.put("/:id", ControladorVenta.modificarVentaPorId);
+router.delete("/:id", ControladorVenta.eliminarVentaPorId);
 
 export default router;
