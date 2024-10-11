@@ -22,4 +22,4 @@ Content-Type: application/json
 }
 
 ### ELIMINAR ROL POR ID
-DELETE http://localhost:4000/api/roles/1
+DELETE http://localhost:4000/api/roles/2

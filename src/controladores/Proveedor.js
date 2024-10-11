@@ -1,107 +1,61 @@
-import sequelize from "../configuraciones/BaseDeDatos.js";
-import Proveedor from "../modelos/Proveedor.js"
-import validarParametroDeURL from "../funciones/funciones.js";
+import servicioProveedor from "../servicios/Proveedor.js";
+
 
 class ControladorProveedor {
   static async crearProveedor(req, res) {
     try {
-      const { nombre, ruc, telefono, direccion } = req.body;
-      if (!nombre || !ruc || !telefono || !direccion) {
-        return res.status(500).json(`Se requiere completar todos los campos`);
-      }
-      await sequelize.transaction(async (transaccion) => {
-        const proveedor = await Proveedor.create(
-          {
-            nombre,
-            ruc,
-            telefono,
-            direccion,
-          },
-          { transaction: transaccion }
-        );
-        return res.status(201).json(proveedor);
-      });
+      const { nombre, ruc, telefono, direccion} = req.body;
+      const nuevoProveedor = await servicioProveedor.crearProveedor(nombre, ruc, telefono, direccion);
+      res.status(201).json(nuevoProveedor);
     } catch (error) {
-      return res.status(500).json(error.message);
+      res.status(400).json({ message: error.message });
     }
   }
 
-  static async obtenerTodosLosProveedores(req, res) {
+  static async obtenerProveedores(req, res) {
     try {
-      await sequelize.transaction(async (transaccion) => {
-        const proveedores = await Proveedor.findAll({
-          attributes: ["id", "nombre", "ruc", "telefono", "direccion"],
-          order: [["id", "ASC"]],
-          transaction: transaccion,
-        });
-        return res.status(200).json(proveedores);
-      });
+      const Proveedor = await servicioProveedor.obtenerProveedores();
+      res.json(Proveedor);
     } catch (error) {
-      return res.status(500).json(error.message);
+      res.status(500).json({ message: error.message });
     }
   }
 
   static async obtenerProveedorPorId(req, res) {
     try {
-      const id = req.params.id;
-      const parametroEsValido = validarParametroDeURL(id);
-      if (!parametroEsValido) {
-        return res.status(500).json(`El parámetro '${id}' no es válido`);
-      }
-      const proveedor = await Proveedor.findByPk(id, {
-        attributes: ["id", "nombre", "ruc", "telefono", "direccion"],
-      });
-      if (!proveedor) {
-        return res.status(404).json(`No existe el proveedor con el id: ${id}`);
-      }
-      return res.status(200).json(proveedor);
+      const proveedor = await servicioProveedor.obtenerProveedorPorId(
+        req.params.id
+      );
+      res.json(proveedor);
     } catch (error) {
-      return res.status(500).json(error.message);
+      res.status(404).json({ message: error.message });
     }
   }
 
-  static async modificarProveedorPorId(req, res) {
+  static async actualizarProveedor(req, res) {
     try {
-      const id = req.params.id;
-      const parametroEsValido = validarParametroDeURL(id);
-      if (!parametroEsValido) {
-        return res.status(500).json(`El parámetro '${id}' no es válido`);
-      }
-      const { nombre, ruc, telefono, direccion  } = req.body;
-      if (!nombre || !ruc || !telefono || !direccion) {
-        return res.status(500).json(`Se requiere todos los campos`);
-      }
-      const proveedor = await Proveedor.findByPk(id);
-      if (!proveedor) {
-        return res.status(404).json(`No existe el proveedor con el id: ${id}`);
-      }
-      await sequelize.transaction(async (transaccion) => {
-        await proveedor.update({ nombre, ruc, telefono, direccion }, { transaction: transaccion });
-        await proveedor.save({ transaction: transaccion });
-        return res.status(200).json(proveedor);
-      });
+      const {nombre, ruc, telefono, direccion } = req.body;
+      const ProveedorActualizado = await servicioProveedor.actualizarProveedor(
+        req.params.id,
+        nombre, 
+        ruc, 
+        telefono, 
+        direccion
+      );
+      res.json(ProveedorActualizado);
     } catch (error) {
-      return res.status(500).json(error.message);
+      res.status(400).json({ message: error.message });
     }
   }
 
-  static async eliminarProveedorPorId(req, res) {
+  static async eliminarProveedor(req, res) {
     try {
-      const id = req.params.id;
-      const parametroEsValido = validarParametroDeURL(id);
-      if (!parametroEsValido) {
-        return res.status(500).json(`El parámetro '${id}' no es válido`);
-      }
-      const proveedor = await Proveedor.findByPk(id);
-      if (!proveedor) {
-        return res.status(404).json(`No existe el proveedor con el id: ${id}`);
-      }
-      await sequelize.transaction(async (transaccion) => {
-        await proveedor.destroy({ transaction: transaccion });
-        return res.status(200).json(proveedor);
-      });
+      const proveedorEliminado = await servicioProveedor.eliminarProveedor(
+        req.params.id
+      );
+      res.json(proveedorEliminado);
     } catch (error) {
-      return res.status(500).json(error.message);
+      res.status(404).json({ message: error.message });
     }
   }
 }

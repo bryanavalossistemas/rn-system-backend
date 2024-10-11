@@ -19,7 +19,7 @@ const Compra = sequelize.define(
       type: DataTypes.DATE,
       allowNull: false,
     },
-    proveedor_id: {
+    proveedorId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -31,7 +31,7 @@ const Compra = sequelize.define(
 );
 
 Compra.belongsTo(Proveedor, {
-  foreignKey: "proveedor_id",  
+  foreignKey: "proveedorId",  
   targetId: "id",
 });
 

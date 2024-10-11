@@ -4,9 +4,9 @@ import ControladorCompra from "../controladores/Compra.js";
 const router = express.Router();
 
 router.post("/", ControladorCompra.crearCompra);
-router.get("/", ControladorCompra.obtenerTodasLasCompras);
-router.get("/:id", ControladorCompra.obtenerCompraPorId);
-router.put("/:id", ControladorCompra.modificarCompraPorId);
-router.delete("/:id", ControladorCompra.eliminarCompraPorId);
+router.get("/", ControladorCompra.obtenerCompras);
+router.get("/:id", ControladorCompra.obtenerComprasPorId);
+router.put("/:id", ControladorCompra.actualizarCompra);
+
 
 export default router;
