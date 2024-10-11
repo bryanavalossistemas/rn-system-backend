@@ -1,22 +1,10 @@
 import repositorioVentas from "../repositorios/Venta.js";
 
 class ServicioVentas {
-  async crearVenta(fecha, subtotal, igv, total, vendedorId, clienteId, detalles) {
+  async crearVenta(fecha, subtotal, igv, total, vendedorId, clienteId) {
     try {
       const nuevaVenta = { fecha, subtotal, igv, total, vendedorId, clienteId };
       const venta = await repositorioVentas.agregar(nuevaVenta);
-
-      if (detalles && detalles.length > 0) {
-        for (const detalle of detalles) {
-          await repositorioVentas.agregarDetalle({
-            ventaId: venta.id,
-            productoId: detalle.productoId,
-            cantidad: detalle.cantidad,
-            monto: detalle.monto,
-          });
-        }
-      }
-
       return venta;
     } catch (error) {
       throw new Error(`Error al crear la venta: ${error.message}`);

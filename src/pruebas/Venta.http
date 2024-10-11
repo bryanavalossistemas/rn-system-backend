@@ -8,19 +8,7 @@ Content-Type: application/json
     "igv": 18.00,
     "total": 118.00,
     "vendedorId": 3,
-    "clienteId": 1,
-    "detalles": [
-        {
-            "cantidad": 2,
-            "monto": 50.00,
-            "productoId": 1
-        },
-        {
-            "cantidad": 1,
-            "monto": 68.00,
-            "productoId": 2
-        }
-    ]
+    "clienteId": 1
 }
 
 ### OBTENER TODAS LAS VENTAS
