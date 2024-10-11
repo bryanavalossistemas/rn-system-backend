@@ -3,9 +3,9 @@ POST http://localhost:4000/api/administradores
 Content-Type: application/json
 
 {
-    "nombre": "Nombre del administrador",
-    "usuario": "usuario",
-    "contrasenia": "contrasenia"
+    "nombre": "Bryan",
+    "usuario": "BR12",
+    "contrasenia": "123456"
 }
 
 ### ACTUALIZAR ADMINISTRADOR POR ID

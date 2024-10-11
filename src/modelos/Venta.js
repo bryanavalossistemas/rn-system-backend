@@ -11,7 +11,7 @@ const Venta = sequelize.define("Venta", {
         allowNull: false,
     },
     fecha: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
     },
     subtotal: {
@@ -44,6 +44,7 @@ const Venta = sequelize.define("Venta", {
     }
 }, {
     timestamps: false,
+    timezone:false,
     freezeTableName: true
 });
 

@@ -28,7 +28,7 @@ Content-Type: application/json
 }
 
 ### ELIMINAR USUARIO POR ID
-DELETE http://localhost:4000/api/usuarios/1
+DELETE http://localhost:4000/api/usuarios/2
 
 ### INICIAR SESION
 POST  http://localhost:4000/api/usuarios/autenticacion/iniciarSesion
