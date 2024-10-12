@@ -35,4 +35,11 @@ export function generarJWT(datos) {
   return token;
 }
 
+export function formatDateToLocal(date, locale = "es-PE") {
+  return new Intl.DateTimeFormat(locale, {
+    dateStyle: "full",
+    timeStyle: "short",
+  }).format(date);
+}
+
 export default validarParametroDeURL;

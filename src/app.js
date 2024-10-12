@@ -37,11 +37,11 @@ app.use("/api/roles", rutasRol);
 app.use("/api/usuarios", rutasUsuario);
 app.use("/api/administradores", rutasAdministrador);
 app.use("/api/vendedores", rutasVendedor);
-app.use("/api/compra", rutasCompra);
+app.use("/api/compras", rutasCompra);
 app.use("/api/clientes", rutasCliente);
 app.use("/api/ventas", rutasVenta);
 app.use("/api/detalleventas", rutasDetalleVenta);
-app.use("/api/producto", rutasProducto);
+app.use("/api/productos", rutasProducto);
 app.use("/api/imagenproducto", rutasImagenProducto);
 app.use("/api/detallecompras", rutasDetalleCompra);
 

@@ -1,12 +1,35 @@
 import RepositorioBase from "./Base.js";
-import ModeloCompras from "../modelos/Compra.js";
+import ModeloCompra from "../modelos/Compra.js";
+import ModeloProveedor from "../modelos/Proveedor.js";
+import { formatDateToLocal } from "../funciones/funciones.js";
 
-class RepositorioCompras extends RepositorioBase {
+class RepositorioCompra extends RepositorioBase {
   constructor() {
-    super(ModeloCompras);
+    super(ModeloCompra);
   }
+
+  obtenerTodos = async () => {
+    try {
+      const compras = await this.model.findAll({
+        include: [{ model: ModeloProveedor, as: "proveedor" }],
+        order: [["id", "ASC"]],
+      });
+      return compras.map((compra) => {
+        return {
+          id: compra.id,
+          proveedor: compra.proveedor.nombre,
+          fecha: formatDateToLocal(new Date(compra.fecha)),
+          total: compra.total,
+        };
+      });
+    } catch (error) {
+      throw new Error(
+        `Error de Base de datos: error al obtener elementos: ${error.message}`
+      );
+    }
+  };
 }
 
-const repositoriocompras = new RepositorioCompras();
+const repositoriocompra = new RepositorioCompra();
 
-export default repositoriocompras;
+export default repositoriocompra;

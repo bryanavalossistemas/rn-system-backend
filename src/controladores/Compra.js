@@ -3,8 +3,11 @@ import servicioCompras from "../servicios/Compra.js";
 class ControladorCompra {
   static async crearCompra(req, res) {
     try {
-      const { total, fecha, proveedorId } = req.body;
-      const nuevaCompra = await servicioCompras.crearCompra(total,fecha,proveedorId);
+      const { proveedor, detallesCompra } = req.body;
+      const nuevaCompra = await servicioCompras.crearCompra(
+        proveedor,
+        detallesCompra
+      );
       res.status(201).json(nuevaCompra);
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -41,7 +44,6 @@ class ControladorCompra {
       res.status(400).json({ message: error.message });
     }
   }
-
 }
 
 export default ControladorCompra;

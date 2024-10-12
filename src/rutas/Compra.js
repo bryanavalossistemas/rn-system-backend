@@ -8,5 +8,4 @@ router.get("/", ControladorCompra.obtenerCompras);
 router.get("/:id", ControladorCompra.obtenerComprasPorId);
 router.put("/:id", ControladorCompra.actualizarCompra);
 
-
 export default router;

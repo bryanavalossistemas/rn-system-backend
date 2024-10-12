@@ -16,7 +16,7 @@ const DetalleCompra = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    monto: {
+    precioCosto: {
       type: DataTypes.DOUBLE,
       allowNull: false,
     },

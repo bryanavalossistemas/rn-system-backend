@@ -1,8 +1,8 @@
 import sequelize from "../configuraciones/BaseDeDatos.js";
 import DataTypes from "sequelize";
-import Proveedor from "./Proveedor.js"
+import ModeloProveedor from "./Proveedor.js";
 
-const Compra = sequelize.define(
+const ModeloCompra = sequelize.define(
   "Compra",
   {
     id: {
@@ -16,7 +16,7 @@ const Compra = sequelize.define(
       allowNull: false,
     },
     fecha: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
       allowNull: false,
     },
     proveedorId: {
@@ -30,9 +30,9 @@ const Compra = sequelize.define(
   }
 );
 
-Compra.belongsTo(Proveedor, {
-  foreignKey: "proveedorId",  
-  targetId: "id",
+ModeloCompra.belongsTo(ModeloProveedor, {
+  foreignKey: "proveedorId",
+  as: "proveedor",
 });
 
-export default Compra;
+export default ModeloCompra;
