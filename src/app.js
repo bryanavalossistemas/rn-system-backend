@@ -15,6 +15,7 @@ import rutasVenta from './rutas/Venta.js';
 import rutasDetalleVenta from './rutas/DetalleVenta.js'
 import rutasProducto from "./rutas/Producto.js";
 import rutasImagenProducto from "./rutas/ImagenProducto.js";
+import rutasDetalleCompra from "./rutas/DetalleCompra.js";
 
 // Configurar el servidor Express
 const app = express();
@@ -40,7 +41,8 @@ app.use("/api/compra", rutasCompra);
 app.use("/api/clientes", rutasCliente);
 app.use("/api/ventas", rutasVenta);
 app.use("/api/detalleventas", rutasDetalleVenta);
-app.use("/api/productos", rutasProducto);
+app.use("/api/producto", rutasProducto);
 app.use("/api/imagenproducto", rutasImagenProducto);
+app.use("/api/detallecompras", rutasDetalleCompra);
 
 export default app;
