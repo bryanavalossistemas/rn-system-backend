@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.post("/", ControladorMarca.crearMarca);
 router.get("/", ControladorMarca.obtenerMarcas);
-// router.get("/:id", ControladorMarca.obtenerMarcaPorId);
-// router.put("/:id", ControladorMarca.modificarMarcaPorId);
-// router.delete("/:id", ControladorMarca.eliminarMarcaPorId);
+router.get("/:id", ControladorMarca.obtenerMarcaPorId);
+router.put("/:id", ControladorMarca.actualizarMarca);
+router.delete("/:id", ControladorMarca.eliminarMarca);
 
 export default router;

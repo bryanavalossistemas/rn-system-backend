@@ -20,40 +20,42 @@ class ControladorMarca {
     }
   }
 
-  // static async obtenerCategoriaPorId(req, res) {
-  //   try {
-  //     const categoria = await servicioMarca.obtenerCategoriaPorId(
-  //       req.params.id
-  //     );
-  //     res.json(categoria);
-  //   } catch (error) {
-  //     res.status(404).json({ message: error.message });
-  //   }
-  // }
+  static async obtenerMarcaPorId(req, res) {
+    try {
+      const marca = await servicioMarca.obtenerMarcaPorId(req.params.id);
+      if (!marca) {
+        return res.status(404).json({ message: "Marca no encontrada" });
+      }
+      res.json(marca);
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  }
 
-  // static async actualizarCategoria(req, res) {
-  //   try {
-  //     const { nombre } = req.body;
-  //     const categoriaActualizada = await servicioMarca.actualizarCategoria(
-  //       req.params.id,
-  //       nombre
-  //     );
-  //     res.json(categoriaActualizada);
-  //   } catch (error) {
-  //     res.status(400).json({ message: error.message });
-  //   }
-  // }
+  static async actualizarMarca(req, res) {
+    try {
+      const { nombre } = req.body;
+      const marcaActualizada = await servicioMarca.actualizarMarca(req.params.id, nombre);
+      if (!marcaActualizada) {
+        return res.status(404).json({ message: "Marca no encontrada para actualizar" });
+      }
+      res.json(marcaActualizada);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  }
 
-  // static async eliminarCategoria(req, res) {
-  //   try {
-  //     const categoriaEliminada = await servicioMarca.eliminarCategoria(
-  //       req.params.id
-  //     );
-  //     res.json(categoriaEliminada);
-  //   } catch (error) {
-  //     res.status(404).json({ message: error.message });
-  //   }
-  // }
+  static async eliminarMarca(req, res) {
+    try {
+      const marcaEliminada = await servicioMarca.eliminarMarca(req.params.id);
+      if (!marcaEliminada) {
+        return res.status(404).json({ message: "Marca no encontrada para eliminar" });
+      }
+      res.json(marcaEliminada);
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  }
 }
 
 export default ControladorMarca;

@@ -3,5 +3,26 @@ POST http://localhost:4000/api/marcas
 Content-Type: application/json
 
 {
-    "nombre": "Marca 1"
+    "nombre": "marca 1"
 }
+
+###OBTENER MARCAS
+GET http://localhost:4000/api/marcas/
+
+
+###OBTENER MARCA POR ID
+GET http://localhost:4000/api/marcas/1/
+
+
+###ACTUALIZAR MARCA POR ID
+PUT http://localhost:4000/api/marcas/1/
+Content-Type: application/json
+
+{
+  "nombre": "Marca Pizza"
+}
+
+
+
+###ELIMINAR MARCA
+DELETE http://localhost:4000/api/marcas/2/

@@ -18,43 +18,48 @@ class ServicioMarca {
     }
   }
 
-  //   async obtenerCategoriaPorId(id) {
-  //     try {
-  //       const categoria = await repositorioMarca.obtenerPorId(id);
-  //       if (!categoria) throw new Error("Categoría no encontrada");
-  //       return categoria;
-  //     } catch (error) {
-  //       throw new Error(
-  //         `Error al obtener la marca con ID ${id}: ${error.message}`
-  //       );
-  //     }
-  //   }
+  async obtenerMarcaPorId(id) {
+    try {
+      const marca = await repositorioMarca.obtenerPorId(id);
+      if (!marca) throw new Error("Marca no encontrada");
+      return marca;
+    } catch (error) {
+      throw new Error(
+        `Error al obtener la marca con ID ${id}: ${error.message}`
+      );
+    }
+  }
 
-  //   async actualizarCategoria(id, nombre) {
-  //     try {
-  //       const datosActualizados = { nombre };
-  //       return await repositorioMarca.actualizar(id, datosActualizados);
-  //     } catch (error) {
-  //       throw new Error(
-  //         `Error al actualizar la marca con ID ${id}: ${error.message}`
-  //       );
-  //     }
-  //   }
+  async actualizarMarca(id, nombre) {
+    try {
+      const datosActualizados = { nombre };
+      const marcaActualizada = await repositorioMarca.actualizar(
+        id,
+        datosActualizados
+      );
+      if (!marcaActualizada)
+        throw new Error("Marca no encontrada para actualizar");
+      return marcaActualizada;
+    } catch (error) {
+      throw new Error(
+        `Error al actualizar la marca con ID ${id}: ${error.message}`
+      );
+    }
+  }
 
-  //   async eliminarCategoria(id) {
-  //     try {
-  //       const categoriaEliminada = await repositorioMarca.eliminar(id);
-  //       if (!categoriaEliminada)
-  //         throw new Error("Categoría no encontrada para eliminar");
-  //       return categoriaEliminada;
-  //     } catch (error) {
-  //       throw new Error(
-  //         `Error al eliminar la marca con ID ${id}: ${error.message}`
-  //       );
-  //     }
-  //   }
+  async eliminarMarca(id) {
+    try {
+      const marcaEliminada = await repositorioMarca.eliminar(id);
+      if (!marcaEliminada) throw new Error("Marca no encontrada para eliminar");
+      return marcaEliminada;
+    } catch (error) {
+      throw new Error(
+        `Error al eliminar la marca con ID ${id}: ${error.message}`
+      );
+    }
+  }
 }
 
-const servicioCategoria = new ServicioMarca();
+const servicioMarca = new ServicioMarca();
 
-export default servicioCategoria;
+export default servicioMarca;
