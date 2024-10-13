@@ -1,5 +1,5 @@
 ###OBTENER PRODUCTOS
-GET http://localhost:4000/api/producto/
+GET http://localhost:4000/api/productos
 
 ###CREAR PRIMERO MARCA
 POST http://localhost:4000/api/marcas/

@@ -1,11 +1,44 @@
-import repositorioVentas from "../repositorios/Venta.js";
+import repositorioVenta from "../repositorios/Venta.js";
+import repositorioDetalleVenta from "../repositorios/DetalleVenta.js";
+import repositorioProducto from "../repositorios/Producto.js";
 
 class ServicioVentas {
-  async crearVenta(fecha, subtotal, igv, total, vendedorId, clienteId) {
+  async crearVenta(cliente, detallesVenta) {
     try {
-      const nuevaVenta = { fecha, subtotal, igv, total, vendedorId, clienteId };
-      const venta = await repositorioVentas.agregar(nuevaVenta);
-      return venta;
+      const total = detallesVenta.reduce(
+        (total, detalleVenta) =>
+          total + detalleVenta.cantidad * detalleVenta.precioVenta,
+        0
+      );
+      const subtotal = Math.round((total / 1.18) * 100) / 100;
+      const igv = Math.round(subtotal * 0.18 * 100) / 100;
+      const fecha = new Date();
+      const nuevaVenta = {
+        total,
+        igv,
+        subtotal,
+        fecha,
+        clienteId: cliente.id,
+      };
+      const venta = await repositorioVenta.agregar(nuevaVenta);
+      for (let index = 0; index < detallesVenta.length; index++) {
+        const nuevoDetalleVenta = {
+          precioVenta: detallesVenta[index].precioVenta,
+          cantidad: detallesVenta[index].cantidad,
+          productoId: detallesVenta[index].producto.id,
+          ventaId: venta.id,
+        };
+        await repositorioDetalleVenta.agregar(nuevoDetalleVenta);
+        const producto = await repositorioProducto.obtenerPorId(
+          detallesVenta[index].producto.id
+        );
+        const nuevoStock = producto.stock - detallesVenta[index].cantidad;
+        await repositorioProducto.actualizar(producto.id, {
+          stock: nuevoStock,
+        });
+      }
+      const ventaCreada = await repositorioVenta.obtenerPorId(venta.id);
+      return ventaCreada;
     } catch (error) {
       throw new Error(`Error al crear la venta: ${error.message}`);
     }
@@ -13,7 +46,7 @@ class ServicioVentas {
 
   async obtenerVentas() {
     try {
-      return await repositorioVentas.obtenerTodos();
+      return await repositorioVenta.obtenerTodos();
     } catch (error) {
       throw new Error(`Error al obtener las ventas: ${error.message}`);
     }
@@ -21,28 +54,40 @@ class ServicioVentas {
 
   async obtenerVentaPorId(id) {
     try {
-      const venta = await repositorioVentas.obtenerPorId(id);
+      const venta = await repositorioVenta.obtenerPorId(id);
       if (!venta) throw new Error("Venta no encontrada");
       return venta;
     } catch (error) {
-      throw new Error(`Error al obtener la venta con ID ${id}: ${error.message}`);
+      throw new Error(
+        `Error al obtener la venta con ID ${id}: ${error.message}`
+      );
     }
   }
 
-  async modificarVentaPorId(id, fecha, subtotal, igv, total, vendedorId, clienteId) {
+  async modificarVentaPorId(id, fecha, subtotal, igv, total, clienteId) {
     try {
-      const datosActualizados = { fecha, subtotal, igv, total, vendedorId, clienteId };
-      return await repositorioVentas.actualizar(id, datosActualizados);
+      const datosActualizados = {
+        fecha,
+        subtotal,
+        igv,
+        total,
+        clienteId,
+      };
+      return await repositorioVenta.actualizar(id, datosActualizados);
     } catch (error) {
-      throw new Error(`Error al actualizar la venta con ID ${id}: ${error.message}`);
+      throw new Error(
+        `Error al actualizar la venta con ID ${id}: ${error.message}`
+      );
     }
   }
 
   async eliminarVentaPorId(id) {
     try {
-      return await repositorioVentas.eliminar(id);
+      return await repositorioVenta.eliminar(id);
     } catch (error) {
-      throw new Error(`Error al eliminar la venta con ID ${id}: ${error.message}`);
+      throw new Error(
+        `Error al eliminar la venta con ID ${id}: ${error.message}`
+      );
     }
   }
 }

@@ -3,8 +3,8 @@ import servicioDetalleVenta from "../servicios/DetalleVenta.js";
 class ControladorDetalleVenta {
   static async crearDetalleVenta(req, res) {
     try {
-      const { cantidad, monto, ventaId, productoId } = req.body;
-      const nuevoDetalleVenta = await servicioDetalleVenta.crearDetalleVenta(cantidad, monto, ventaId, productoId );
+      const { cantidad, precioVenta, ventaId, productoId } = req.body;
+      const nuevoDetalleVenta = await servicioDetalleVenta.crearDetalleVenta(cantidad, precioVenta, ventaId, productoId );
       res.status(201).json(nuevoDetalleVenta);
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -30,11 +30,11 @@ class ControladorDetalleVenta {
 
   static async actualizarDetalleVenta(req, res) {
     try {
-      const { cantidad, monto, ventaId, productoId } = req.body;
+      const { cantidad, precioVenta, ventaId, productoId } = req.body;
       const detalleVentaActualizada = await servicioDetalleVenta.actualizarDetalleVenta(
         req.params.id,
         cantidad,
-        monto,
+        precioVenta,
         ventaId,
         productoId
       );

@@ -25,9 +25,9 @@ POST http://localhost:4000/api/administradores/vendedores/crear
 Content-Type: application/json
 
 {
-    "nombre": "Nombre del vendedor",
-    "usuario": "usuario",
-    "contrasenia": "contrasenia",
+    "nombre": "Leonardo Jauregui",
+    "usuario": "vendedor",
+    "contrasenia": "vendedor",
     "dni": "75013015",
     "telefono": "915115894"
 }

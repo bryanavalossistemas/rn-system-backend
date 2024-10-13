@@ -1,7 +1,5 @@
 import sequelize from "../configuraciones/BaseDeDatos.js";
 import DataTypes from "sequelize";
-import Venta from "./Venta.js";
-import Producto from "./Producto.js"
 
 const DetalleVenta = sequelize.define(
   "DetalleVenta",
@@ -16,7 +14,7 @@ const DetalleVenta = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    monto: {
+    precioVenta: {
       type: DataTypes.DOUBLE,
       allowNull: false,
     },
@@ -34,8 +32,5 @@ const DetalleVenta = sequelize.define(
     freezeTableName: true,
   }
 );
-
-DetalleVenta.belongsTo(Venta, {foreignKey: "ventaId", targetId: "id"});
-DetalleVenta.belongsTo(Producto, {foreignKey: "productoId", targetId: "id"});
 
 export default DetalleVenta;

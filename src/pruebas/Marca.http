@@ -3,7 +3,7 @@ POST http://localhost:4000/api/marcas
 Content-Type: application/json
 
 {
-    "nombre": "marca 1"
+    "nombre": "Marca 1"
 }
 
 ###OBTENER MARCAS

@@ -1,54 +1,41 @@
 import sequelize from "../configuraciones/BaseDeDatos.js";
 import DataTypes from "sequelize";
-import Vendedor from "./Vendedor.js";
-import Cliente from "./Cliente.js";
+import ModeloCliente from "./Cliente.js";
 
-const Venta = sequelize.define("Venta", {
+const ModeloVenta = sequelize.define(
+  "Venta",
+  {
     id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false,
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
     },
     fecha: {
-        type: DataTypes.DATEONLY,
-        allowNull: false,
+      type: DataTypes.DATE,
+      allowNull: false,
     },
     subtotal: {
-        type: DataTypes.DOUBLE,
-        allowNull: false,
+      type: DataTypes.DOUBLE,
+      allowNull: false,
     },
     igv: {
-        type: DataTypes.DOUBLE,
-        allowNull: false,
+      type: DataTypes.DOUBLE,
+      allowNull: false,
     },
     total: {
-        type: DataTypes.DOUBLE,
-        allowNull: false,
-    },
-    vendedorId: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: Vendedor,
-            key: "id"
-        },
-        allowNull: false
+      type: DataTypes.DOUBLE,
+      allowNull: false,
     },
     clienteId: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: Cliente,
-            key: "id"
-        },
-        allowNull: false
-    }
-}, {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  },
+  {
     timestamps: false,
-    timezone:false,
-    freezeTableName: true
-});
+    freezeTableName: true,
+  }
+);
 
-Venta.belongsTo(Vendedor, { foreignKey: "vendedorId" });
-Venta.belongsTo(Cliente, { foreignKey: "clienteId" });
-
-export default Venta;
+export default ModeloVenta;

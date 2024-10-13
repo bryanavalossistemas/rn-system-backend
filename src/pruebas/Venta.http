@@ -15,7 +15,7 @@ Content-Type: application/json
 GET http://localhost:4000/api/ventas
 
 ### OBTENER VENTA POR ID
-GET http://localhost:4000/api/ventas/2
+GET http://localhost:4000/api/ventas/1
 
 ### MODIFICAR VENTA POR ID
 PUT http://localhost:4000/api/ventas/1

@@ -1,14 +1,14 @@
-
 import repositorioDetalleVenta from "../repositorios/DetalleVenta.js";
 
-
 class ServicioDetalleVenta {
-  async crearDetalleVenta(cantidad, monto, ventaId, productoId) {
+  async crearDetalleVenta(cantidad, precioVenta, ventaId, productoId) {
     try {
-      const nuevoDetalleVenta = { cantidad, monto, ventaId, productoId };
+      const nuevoDetalleVenta = { cantidad, precioVenta, ventaId, productoId };
       return await repositorioDetalleVenta.agregar(nuevoDetalleVenta);
     } catch (error) {
-      throw new Error(`Error al crear el detalle de la venta: ${error.message}`);
+      throw new Error(
+        `Error al crear el detalle de la venta: ${error.message}`
+      );
     }
   }
 
@@ -16,7 +16,9 @@ class ServicioDetalleVenta {
     try {
       return await repositorioDetalleVenta.obtenerTodos();
     } catch (error) {
-      throw new Error(`Error al obtener los detalles de las ventas: ${error.message}`);
+      throw new Error(
+        `Error al obtener los detalles de las ventas: ${error.message}`
+      );
     }
   }
 
@@ -32,9 +34,9 @@ class ServicioDetalleVenta {
     }
   }
 
-  async actualizarDetalleVenta(id, cantidad, monto, ventaId, productoId) {
+  async actualizarDetalleVenta(id, cantidad, precioVenta, ventaId, productoId) {
     try {
-      const datosActualizados = { cantidad, monto, ventaId, productoId };
+      const datosActualizados = { cantidad, precioVenta, ventaId, productoId };
       return await repositorioDetalleVenta.actualizar(id, datosActualizados);
     } catch (error) {
       throw new Error(
@@ -42,7 +44,6 @@ class ServicioDetalleVenta {
       );
     }
   }
-
 }
 
 const servicioDetalleVenta = new ServicioDetalleVenta();
