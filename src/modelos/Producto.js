@@ -1,10 +1,7 @@
 import sequelize from "../configuraciones/BaseDeDatos.js";
 import DataTypes from "sequelize";
-import ModeloCategoria from "./Categoria.js";
-import ModeloMarca from "./Marca.js";
-import ModeloImagenProducto from "./ImagenProducto.js";
 
-const ModeloProducto = sequelize.define(
+const Producto = sequelize.define(
   "Producto",
   {
     id: {
@@ -43,20 +40,9 @@ const ModeloProducto = sequelize.define(
     },
   },
   {
-    timestamps: false, // Esto NO agregará automáticamente createdAt y updatedAt
+    timestamps: false,
     freezeTableName: true,
   }
 );
 
-ModeloProducto.belongsTo(ModeloCategoria, {
-  foreignKey: "categoriaId",
-  as: "categoria",
-});
-ModeloProducto.belongsTo(ModeloMarca, { foreignKey: "marcaId", as: "marca" });
-ModeloProducto.belongsTo(ModeloImagenProducto, {
-  foreignKey: "imagenProductoId",
-  as: "imagenProducto",
-  onDelete: "NO ACTION",
-});
-
-export default ModeloProducto;
+export default Producto;

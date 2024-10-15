@@ -15,11 +15,11 @@ const Cliente = sequelize.define(
       allowNull: false,
     },
     telefono: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
     ruc: {
-      type: DataTypes.STRING,
+      type: DataTypes.BIGINT,
       allowNull: true,
     },
   },

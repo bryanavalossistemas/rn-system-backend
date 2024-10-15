@@ -1,8 +1,7 @@
-import DataTypes from "sequelize";
 import sequelize from "../configuraciones/BaseDeDatos.js";
-import ModeloUsuario from "./Usuario.js";
+import DataTypes from "sequelize";
 
-const ModeloVendedor = sequelize.define(
+const Vendedor = sequelize.define(
   "Vendedor",
   {
     id: {
@@ -12,12 +11,12 @@ const ModeloVendedor = sequelize.define(
       allowNull: false,
     },
     dni: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
 
     telefono: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
 
@@ -32,9 +31,4 @@ const ModeloVendedor = sequelize.define(
   }
 );
 
-ModeloVendedor.belongsTo(ModeloUsuario, {
-  foreignKey: "usuarioId",
-  as: "usuario",
-});
-
-export default ModeloVendedor;
+export default Vendedor;

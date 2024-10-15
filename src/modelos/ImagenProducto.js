@@ -1,7 +1,7 @@
 import sequelize from "../configuraciones/BaseDeDatos.js";
 import DataTypes from "sequelize";
 
-const ModeloImagenProducto = sequelize.define(
+const ImagenProducto = sequelize.define(
   "ImagenProducto",
   {
     id: {
@@ -25,4 +25,4 @@ const ModeloImagenProducto = sequelize.define(
   }
 );
 
-export default ModeloImagenProducto;
+export default ImagenProducto;

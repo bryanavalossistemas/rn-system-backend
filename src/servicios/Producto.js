@@ -17,12 +17,14 @@ class ServicioProducto {
     try {
       const categoria = await repositorioCategoria.obtenerPorId(categoriaId);
       const marca = await repositorioMarca.obtenerPorId(marcaId);
-
       if (!categoria) {
         throw new Error("La categoria especificada no existe.");
       }
       if (!marca) {
         throw new Error("La marca especificada no existe.");
+      }
+      if (precioCosto <= 0 || precioVenta <= 0 || stock <= 0) {
+        throw new Error("Datos numéricos deben ser mayor a 0");
       }
 
       const result = await cloudinary.uploader.upload(file.path);

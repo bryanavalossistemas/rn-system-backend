@@ -1,9 +1,9 @@
 import RepositorioBase from "./Base.js";
-import ModeloMarcas from "../modelos/Marca.js";
+import { Marca } from "../modelos/index.js";
 
 class RepositorioMarca extends RepositorioBase {
   constructor() {
-    super(ModeloMarcas);
+    super(Marca);
   }
 }
 

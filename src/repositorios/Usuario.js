@@ -1,9 +1,9 @@
 import RepositorioBase from "./Base.js";
-import ModeloUsuario from "../modelos/Usuario.js";
+import { Usuario } from "../modelos/index.js";
 
 class RepositorioUsuario extends RepositorioBase {
   constructor() {
-    super(ModeloUsuario);
+    super(Usuario);
   }
 
   obtenerPorUsuario = async (usuario) => {

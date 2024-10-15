@@ -75,6 +75,16 @@ class ControladorAdministrador {
       res.status(404).json({ message: error.message });
     }
   }
+
+  static async obtenerAdministradorPorId(req, res) {
+    try {
+      const administrador =
+        await servicioAdministrador.obtenerAdministradorPorId(req.params.id);
+      res.json(administrador);
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  }
 }
 
 export default ControladorAdministrador;

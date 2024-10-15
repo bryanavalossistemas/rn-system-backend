@@ -2,18 +2,21 @@
 POST http://localhost:4000/api/administradores
 Content-Type: application/json
 
-{
+{   
     "nombre": "Bryan Avalos",
     "usuario": "admin",
     "contrasenia": "admin"
 }
+
+### OBTENER ADMINISTRADOR POR ID
+GET  http://localhost:4000/api/administradores/1
 
 ### ACTUALIZAR ADMINISTRADOR POR ID
 PUT http://localhost:4000/api/administradores/actualizar/1
 Content-Type: application/json
 
 {
-    "nombre": "Nuevo nombre de administrador",
+    "nombre": "Nuevo nombre de administradores",
     "usuario": "nuevo usuario",
     "contrasenia": "nueva contra",
     "dni": "75013015asd",
@@ -45,14 +48,11 @@ Content-Type: application/json
 }
 
 ### MODIFICAR DATOS DEL ADMINISTRADOR POR ID
-PUT http://localhost:4000/api/administrador/1
+PUT http://localhost:4000/api/administradores/1
 Content-Type: application/json
 
 {
-    "nombre": "Bryan Avalos Loa y Pardo Jesus administrador modificado",
+    "nombre": "Bryan Avalos Loa y Pardo Jesus administradores modificado",
     "usuario": "admin",
     "contrasenia": "contrasenia"
 }
-
-### OBTENER TODOS LOS VENDEDORES
-GET  http://localhost:4000/api/administrador/vendedores

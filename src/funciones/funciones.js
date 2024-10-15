@@ -11,7 +11,7 @@ function validarParametroDeURL(parametro) {
   return true;
 }
 
-export async function encriptarContraseña(contrasenia) {
+export async function encriptarContrasenia(contrasenia) {
   try {
     const semilla = await bcrypt.genSalt(10);
     return await bcrypt.hash(contrasenia, semilla);

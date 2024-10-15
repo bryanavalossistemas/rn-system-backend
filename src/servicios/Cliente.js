@@ -3,8 +3,16 @@ import repositorioCliente from "../repositorios/Cliente.js";
 class ServicioCliente {
   async crearCliente(nombre, telefono, ruc) {
     try {
+      const vendedorExiste = await repositorioCliente.obtenerPorRUC(ruc);
+      if (vendedorExiste) {
+        throw new Error(`Ya existe un cliente con ruc: ${ruc}`);
+      }
       const nuevoCliente = { nombre, telefono, ruc };
-      return await repositorioCliente.agregar(nuevoCliente);
+      const clienteCreado = await repositorioCliente.agregar(nuevoCliente);
+      return {
+        ok: true,
+        message: clienteCreado,
+      };
     } catch (error) {
       throw new Error(`Error al crear el cliente: ${error.message}`);
     }
@@ -24,7 +32,9 @@ class ServicioCliente {
       if (!cliente) throw new Error("Cliente no encontrado");
       return cliente;
     } catch (error) {
-      throw new Error(`Error al obtener el cliente con ID ${id}: ${error.message}`);
+      throw new Error(
+        `Error al obtener el cliente con ID ${id}: ${error.message}`
+      );
     }
   }
 
@@ -33,7 +43,9 @@ class ServicioCliente {
       const datosActualizados = { nombre, telefono, ruc };
       return await repositorioCliente.actualizar(id, datosActualizados);
     } catch (error) {
-      throw new Error(`Error al actualizar el cliente con ID ${id}: ${error.message}`);
+      throw new Error(
+        `Error al actualizar el cliente con ID ${id}: ${error.message}`
+      );
     }
   }
 
@@ -41,7 +53,9 @@ class ServicioCliente {
     try {
       return await repositorioCliente.eliminar(id);
     } catch (error) {
-      throw new Error(`Error al eliminar el cliente con ID ${id}: ${error.message}`);
+      throw new Error(
+        `Error al eliminar el cliente con ID ${id}: ${error.message}`
+      );
     }
   }
 }

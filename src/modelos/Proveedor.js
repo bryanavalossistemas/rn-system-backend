@@ -1,7 +1,6 @@
 import sequelize from "../configuraciones/BaseDeDatos.js";
 import DataTypes from "sequelize";
 
-
 const Proveedor = sequelize.define(
   "Proveedor",
   {
@@ -16,11 +15,11 @@ const Proveedor = sequelize.define(
       allowNull: false,
     },
     ruc: {
-      type: DataTypes.STRING,
+      type: DataTypes.BIGINT,
       allowNull: false,
     },
     telefono: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     direccion: {

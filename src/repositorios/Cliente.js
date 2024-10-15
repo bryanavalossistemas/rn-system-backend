@@ -1,10 +1,20 @@
-import RepositorioBase from './Base.js';
-import Cliente from '../modelos/Cliente.js';
+import RepositorioBase from "./Base.js";
+import { Cliente } from "../modelos/index.js";
 
 class ClienteRepositorio extends RepositorioBase {
   constructor() {
     super(Cliente);
   }
+
+  obtenerPorRUC = async (ruc) => {
+    try {
+      return await this.model.findOne({ where: { ruc } });
+    } catch (error) {
+      throw new Error(
+        `Error de Base de datos: error al obtener el cliente con RUC: ${ruc}: ${error.message}`
+      );
+    }
+  };
 }
 
 const repositorioCliente = new ClienteRepositorio();

@@ -1,16 +1,15 @@
 import RepositorioBase from "./Base.js";
-import ModeloVendedor from "../modelos/Vendedor.js";
-import ModeloUsuario from "../modelos/Usuario.js";
+import { Vendedor, Usuario } from "../modelos/index.js";
 
 class RepositorioVendedor extends RepositorioBase {
   constructor() {
-    super(ModeloVendedor);
+    super(Vendedor);
   }
 
   obtenerTodos = async () => {
     try {
       const vendedores = await this.model.findAll({
-        include: [{ model: ModeloUsuario, as: "usuario" }],
+        include: [{ model: Usuario, as: "usuario" }],
         order: [["id", "ASC"]],
       });
       const res = vendedores.map((vendedor) => {
@@ -27,6 +26,26 @@ class RepositorioVendedor extends RepositorioBase {
     } catch (error) {
       throw new Error(
         `Error de Base de datos: error al obtener elementos: ${error.message}`
+      );
+    }
+  };
+
+  obtenerPorUsuarioId = async (usuarioId) => {
+    try {
+      return await this.model.findOne({ where: { usuarioId } });
+    } catch (error) {
+      throw new Error(
+        `Error de Base de datos: error al obtener el vendedor con usuarioId: ${usuarioId}: ${error.message}`
+      );
+    }
+  };
+
+  obtenerPorDNI = async (dni) => {
+    try {
+      return await this.model.findOne({ where: { dni } });
+    } catch (error) {
+      throw new Error(
+        `Error de Base de datos: error al obtener el usuario con DNI: ${dni}: ${error.message}`
       );
     }
   };

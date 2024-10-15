@@ -1,17 +1,16 @@
 import RepositorioBase from "./Base.js";
-import ModeloCompra from "../modelos/Compra.js";
-import ModeloProveedor from "../modelos/Proveedor.js";
+import { Compra, Proveedor } from "../modelos/index.js";
 import { formatDateToLocal } from "../funciones/funciones.js";
 
 class RepositorioCompra extends RepositorioBase {
   constructor() {
-    super(ModeloCompra);
+    super(Compra);
   }
 
   obtenerTodos = async () => {
     try {
       const compras = await this.model.findAll({
-        include: [{ model: ModeloProveedor, as: "proveedor" }],
+        include: [{ model: Proveedor, as: "proveedor" }],
         order: [["id", "ASC"]],
       });
       return compras.map((compra) => {

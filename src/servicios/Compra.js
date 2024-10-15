@@ -1,10 +1,15 @@
 import repositorioDetalleCompra from "../repositorios/DetalleCompra.js";
 import repositorioCompra from "../repositorios/Compra.js";
 import repositorioProducto from "../repositorios/Producto.js";
+import repositorioProveedor from "../repositorios/Proveedor.js";
 
 class ServicioCompras {
   async crearCompra(proveedor, detallesCompra) {
     try {
+      const proveedorBuscado = repositorioProveedor.obtenerPorId(proveedor.id);
+      if (!proveedorBuscado) {
+        throw new Error(`No existe el proveedor con ID: ${proveedor.id}`);
+      }
       const total = detallesCompra.reduce(
         (total, detalleCompra) =>
           total + detalleCompra.cantidad * detalleCompra.precioCosto,
@@ -14,6 +19,14 @@ class ServicioCompras {
       const nuevaCompra = { total, fecha, proveedorId: proveedor.id };
       const compra = await repositorioCompra.agregar(nuevaCompra);
       for (let index = 0; index < detallesCompra.length; index++) {
+        const producto = await repositorioProducto.obtenerPorId(
+          detallesCompra[index].producto.id
+        );
+        if (!producto) {
+          throw new Error(
+            `No existe el producto con ID: ${detallesCompra[index].producto.id}`
+          );
+        }
         const nuevoDetalleCompra = {
           cantidad: detallesCompra[index].cantidad,
           precioCosto: detallesCompra[index].precioCosto,
@@ -21,9 +34,6 @@ class ServicioCompras {
           compraId: compra.id,
         };
         await repositorioDetalleCompra.agregar(nuevoDetalleCompra);
-        const producto = await repositorioProducto.obtenerPorId(
-          detallesCompra[index].producto.id
-        );
         const nuevoStock = producto.stock + detallesCompra[index].cantidad;
         const nuevoCosto =
           (detallesCompra[index].precioCosto * detallesCompra[index].cantidad +

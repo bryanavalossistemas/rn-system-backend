@@ -1,12 +1,12 @@
 import repositorioAdministrador from "../repositorios/Administrador.js";
 import repositorioUsuario from "../repositorios/Usuario.js";
 import repositorioVendedor from "../repositorios/Vendedor.js";
-import { encriptarContraseña } from "../funciones/funciones.js";
+import { encriptarContrasenia } from "../funciones/funciones.js";
 
 class ServicioAdministrador {
   async crearAdministrador(nombre, usuario, contrasenia) {
     try {
-      const contraseniaEncriptada = await encriptarContraseña(contrasenia);
+      const contraseniaEncriptada = await encriptarContrasenia(contrasenia);
       const nuevoUsuario = {
         nombre,
         usuario,
@@ -39,7 +39,7 @@ class ServicioAdministrador {
 
   async crearVendedor(nombre, usuario, contrasenia, dni, telefono) {
     try {
-      const contraseniaEncriptada = await encriptarContraseña(contrasenia);
+      const contraseniaEncriptada = await encriptarContrasenia(contrasenia);
       const nuevoUsuario = {
         nombre,
         usuario,
@@ -57,7 +57,7 @@ class ServicioAdministrador {
   async actualizarVendedor(id, nombre, usuario, contrasenia, dni, telefono) {
     try {
       if (contrasenia) {
-        contrasenia = await encriptarContraseña(contrasenia);
+        contrasenia = await encriptarContrasenia(contrasenia);
       }
       const vendedor = await repositorioVendedor.obtenerPorId(id);
       const datosUsuarioActualizados = {
@@ -88,6 +88,18 @@ class ServicioAdministrador {
     } catch (error) {
       throw new Error(
         `Error al eliminar el vendedor con ID ${id}: ${error.message}`
+      );
+    }
+  }
+
+  async obtenerAdministradorPorId(id) {
+    try {
+      const administrador = await repositorioAdministrador.obtenerPorId(id);
+      if (!administrador) throw new Error("Administrador no encontrado");
+      return administrador;
+    } catch (error) {
+      throw new Error(
+        `Error al obtener el administrador con ID ${id}: ${error.message}`
       );
     }
   }

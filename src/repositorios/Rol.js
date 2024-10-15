@@ -1,9 +1,9 @@
 import RepositorioBase from "./Base.js";
-import ModeloRol from "../modelos/Rol.js";
+import { Rol } from "../modelos/index.js";
 
 class RepositorioRol extends RepositorioBase {
   constructor() {
-    super(ModeloRol);
+    super(Rol);
   }
 }
 

@@ -1,7 +1,7 @@
 import sequelize from "../configuraciones/BaseDeDatos.js";
 import DataTypes from "sequelize";
 
-const ModeloCategoria = sequelize.define(
+const Categoria = sequelize.define(
   "Categoria",
   {
     id: {
@@ -21,4 +21,4 @@ const ModeloCategoria = sequelize.define(
   }
 );
 
-export default ModeloCategoria;
+export default Categoria;

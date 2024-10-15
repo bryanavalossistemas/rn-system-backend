@@ -2,13 +2,13 @@ import cors from "cors";
 import express from "express";
 import morgan from "morgan";
 
+import rutasRol from "./rutas/Rol.js";
 import rutasDetalleVenta from "./rutas/DetalleVenta.js";
 import rutasVenta from "./rutas/Venta.js";
 import rutasCategoria from "./rutas/Categoria.js";
 import rutasMarca from "./rutas/Marca.js";
 import rutasProveedor from "./rutas/Proveedor.js";
 import rutasUsuario from "./rutas/Usuario.js";
-import rutasRol from "./rutas/Rol.js";
 import rutasAdministrador from "./rutas/Administrador.js";
 import rutasVendedor from "./rutas/Vendedor.js";
 import rutasCompra from "./rutas/Compra.js";
