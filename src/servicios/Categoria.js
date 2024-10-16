@@ -3,22 +3,19 @@ import repositorioCategoria from "../repositorios/Categoria.js";
 class ServicioCategoria {
   async crearCategoria(nombre) {
     try {
-      const categoriaExiste = await repositorioCategoria.obtenerPorNombre(
-        nombre
-      );
-      if (categoriaExiste) {
-        throw new Error(`Ya existe una categoría con nombre: ${nombre}`);
-      }
-      const nuevaCategoria = { nombre };
-      const categoriaCreada = await repositorioCategoria.agregar(
-        nuevaCategoria
-      );
+      const nombrenormalizado = nombre.trim().toLowerCase();
+      const categoriaexiste = await repositorioCategoria.obtenerPorNombre(nombrenormalizado);
+      if (categoriaexiste){
+          throw new Error(`la categoria ya existe con el nombre de: ${nombrenormalizado} `)
+      };
+      const nuevaCategoria = { nombre :nombrenormalizado };
+      const categoriacreada =await repositorioCategoria.agregar(nuevaCategoria);
       return {
-        ok: true,
-        message: categoriaCreada,
+        ok:true,
+        message:categoriacreada,
       };
     } catch (error) {
-      throw new Error(`Error al crear la categoría: ${error.message}`);
+      throw new Error(`Error al crear la categoria: ${error.message}`);
     }
   }
 
@@ -44,11 +41,26 @@ class ServicioCategoria {
 
   async actualizarCategoria(id, nombre) {
     try {
-      const datosActualizados = { nombre };
-      return await repositorioCategoria.actualizar(id, datosActualizados);
+      const nombrenormalizado = nombre.trim().toLowerCase();
+      const categoriaexiste = await repositorioCategoria.obtenerPorNombre(nombrenormalizado);
+      if (categoriaexiste){
+          throw new Error(`la categoria ya existe con el nombre de: ${nombrenormalizado} `)
+      };  
+      const datosActualizados = { nombre: nombrenormalizado };
+      const categoriaActualizada = await repositorioCategoria.actualizar(
+        id,
+        datosActualizados
+      );
+      if (!categoriaActualizada)
+        throw new Error("categoria no encontrada para actualizar");
+      
+      return {
+      ok: true,
+      message: categoriaActualizada,
+      }
     } catch (error) {
       throw new Error(
-        `Error al actualizar la categoría con ID ${id}: ${error.message}`
+        `Error al actualizar la categoria con ID ${id}: ${error.message}`
       );
     }
   }

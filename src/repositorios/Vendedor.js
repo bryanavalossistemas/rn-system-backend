@@ -42,10 +42,31 @@ class RepositorioVendedor extends RepositorioBase {
 
   obtenerPorDNI = async (dni) => {
     try {
-      return await this.model.findOne({ where: { dni } });
+      const vendedordni = await this.model.findOne({ where: { dni } });
+      if (!vendedordni) {
+        return null;
+      }
+
+      return vendedordni;
     } catch (error) {
       throw new Error(
         `Error de Base de datos: error al obtener el usuario con DNI: ${dni}: ${error.message}`
+      );
+    }
+  };
+
+
+  obtenerPorTelefono = async (telefono) => {
+    try {
+      const vendedortelefono = await this.model.findOne({ where: { telefono } });
+      if (!vendedortelefono) {
+        return null;
+      }
+
+      return vendedortelefono;
+    } catch (error) {
+      throw new Error(
+        `Error de Base de datos: error al obtener el usuario con telefono: ${telefono}: ${error.message}`
       );
     }
   };

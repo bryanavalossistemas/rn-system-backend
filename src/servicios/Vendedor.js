@@ -9,10 +9,16 @@ class ServicioVendedor {
       if (usuarioExiste) {
         throw new Error(`Ya existe un vendedor con usuario: ${usuario}`);
       }
-      const vendedorExiste = await repositorioVendedor.obtenerPorDNI(dni);
-      if (vendedorExiste) {
+      const vendedordniExiste = await repositorioVendedor.obtenerPorDNI(dni);
+      if (vendedordniExiste != null) {
         throw new Error(`Ya existe un vendedor con dni: ${dni}`);
       }
+
+      const vendedortelefonoexite = await repositorioVendedor.obtenerPorTelefono(telefono);
+      if (vendedortelefonoexite != null) {
+        throw new Error(`Ya existe un vendedor con telefeno: ${telefono}`);
+      }
+
       const contraseniaEncriptada = await encriptarContrasenia(contrasenia);
       const nuevoUsuario = {
         nombre,

@@ -39,6 +39,19 @@ class ServicioAdministrador {
 
   async crearVendedor(nombre, usuario, contrasenia, dni, telefono) {
     try {
+      const usuarioExiste = await repositorioUsuario.obtenerPorUsuario(usuario);
+      if (usuarioExiste) {
+        throw new Error(`Ya existe un vendedor con usuario: ${usuario}`);
+      }
+      const vendedordniExiste = await repositorioVendedor.obtenerPorDNI(dni);
+      if (vendedordniExiste != null) {
+        throw new Error(`Ya existe un vendedor con dni: ${dni}`);
+      }
+
+      const vendedortelefonoexite = await repositorioVendedor.obtenerPorTelefono(telefono);
+      if (vendedortelefonoexite != null) {
+        throw new Error(`Ya existe un vendedor con telefeno: ${telefono}`);
+      }
       const contraseniaEncriptada = await encriptarContrasenia(contrasenia);
       const nuevoUsuario = {
         nombre,
@@ -48,7 +61,11 @@ class ServicioAdministrador {
       };
       const usuarioCreado = await repositorioUsuario.agregar(nuevoUsuario);
       const nuevoVendedor = { dni, telefono, usuarioId: usuarioCreado.id };
-      return await repositorioVendedor.agregar(nuevoVendedor);
+      const vendedorcreado = await repositorioVendedor.agregar(nuevoVendedor);
+      return {
+        ok: true,
+        message: vendedorcreado,
+      }
     } catch (error) {
       throw new Error(`Error al crear el vendedor: ${error.message}`);
     }
