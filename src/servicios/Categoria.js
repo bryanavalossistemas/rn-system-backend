@@ -3,8 +3,20 @@ import repositorioCategoria from "../repositorios/Categoria.js";
 class ServicioCategoria {
   async crearCategoria(nombre) {
     try {
+      const categoriaExiste = await repositorioCategoria.obtenerPorNombre(
+        nombre
+      );
+      if (categoriaExiste) {
+        throw new Error(`Ya existe una categoría con nombre: ${nombre}`);
+      }
       const nuevaCategoria = { nombre };
-      return await repositorioCategoria.agregar(nuevaCategoria);
+      const categoriaCreada = await repositorioCategoria.agregar(
+        nuevaCategoria
+      );
+      return {
+        ok: true,
+        message: categoriaCreada,
+      };
     } catch (error) {
       throw new Error(`Error al crear la categoría: ${error.message}`);
     }

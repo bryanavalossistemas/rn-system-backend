@@ -8,7 +8,9 @@ class ServicioProveedor {
         throw new Error(`Ya existe un proveedor con ruc: ${ruc}`);
       }
       const nuevoProveedor = { nombre, ruc, telefono, direccion };
-      const proveedorCreado = await repositorioProveedor.agregar(nuevoProveedor);
+      const proveedorCreado = await repositorioProveedor.agregar(
+        nuevoProveedor
+      );
       return {
         ok: true,
         message: proveedorCreado,
