@@ -15,6 +15,16 @@ class RepositorioProveedor extends RepositorioBase {
       );
     }
   };
+
+  obtenerPorTelefono = async (telefono) => {
+    try {
+      return await this.model.findOne({ where: { telefono } });
+    } catch (error) {
+      throw new Error(
+        `Error de Base de datos: error al obtener el proveedor con el telefono: ${telefono}: ${error.message}`
+      );
+    }
+  };
 }
 
 const repositorioProveedor = new RepositorioProveedor();

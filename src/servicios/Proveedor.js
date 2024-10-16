@@ -3,9 +3,13 @@ import repositorioProveedor from "../repositorios/Proveedor.js";
 class ServicioProveedor {
   async crearProveedor(nombre, ruc, telefono, direccion) {
     try {
-      const proveedorExiste = await repositorioProveedor.obtenerPorRUC(ruc);
-      if (proveedorExiste) {
+      const proveedorRUCExiste = await repositorioProveedor.obtenerPorRUC(ruc);
+      if (proveedorRUCExiste) {
         throw new Error(`Ya existe un proveedor con ruc: ${ruc}`);
+      }
+      const proveedorTelefonoExiste = await repositorioProveedor.obtenerPorTelefono(telefono);
+      if (proveedorTelefonoExiste) {
+        throw new Error(`Ya existe un proveedor con el telefono: ${telefono}`);
       }
       const nuevoProveedor = { nombre, ruc, telefono, direccion };
       const proveedorCreado = await repositorioProveedor.agregar(
@@ -41,12 +45,12 @@ class ServicioProveedor {
   }
 
   async actualizarProveedor(id, nombre, ruc, telefono, direccion) {
-    try {
+    try {      
       const datosActualizados = { nombre, ruc, telefono, direccion };
       return await repositorioProveedor.actualizar(id, datosActualizados);
     } catch (error) {
       throw new Error(
-        `Error al actualizar la compra con ID ${id}: ${error.message}`
+        `Error al actualizar el proveedor con ID ${id}: ${error.message}`
       );
     }
   }

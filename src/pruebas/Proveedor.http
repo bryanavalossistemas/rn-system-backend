@@ -4,8 +4,8 @@ Content-Type: application/json
 
 {
     "nombre": "Alicorp",
-    "ruc": "1234567",
-    "telefono": "+514335677",
+    "ruc": "123456733",
+    "telefono": "4335677",
     "direccion": "Calle 13 MZ A"
 }
 
@@ -22,8 +22,8 @@ Content-Type: application/json
 
 {
     "nombre": "PYG",
-    "ruc": "1234567",
-    "telefono": "+514335677",
+    "ruc": "123456733",
+    "telefono": "514335677",
     "direccion": "Calle 13 MZ A"
 }
 
