@@ -14,12 +14,10 @@ const Vendedor = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-
-    telefono: {
+    celular: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-
     usuarioId: {
       type: DataTypes.INTEGER,
       allowNull: false,

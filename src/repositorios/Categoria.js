@@ -3,7 +3,6 @@ import { Categoria } from "../modelos/index.js";
 
 class RepositorioCategoria extends RepositorioBase {
   constructor() {
-    ``;
     super(Categoria);
   }
 

@@ -15,6 +15,16 @@ class ClienteRepositorio extends RepositorioBase {
       );
     }
   };
+
+  obtenerPorCelular = async (celular) => {
+    try {
+      return await this.model.findOne({ where: { celular } });
+    } catch (error) {
+      throw new Error(
+        `Error de Base de datos: error al obtener el cliente con celular: ${celular}: ${error.message}`
+      );
+    }
+  };
 }
 
 const repositorioCliente = new ClienteRepositorio();

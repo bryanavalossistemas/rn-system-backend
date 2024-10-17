@@ -15,7 +15,9 @@ class RepositorioBase {
 
   obtenerTodos = async () => {
     try {
-      return await this.model.findAll();
+      return await this.model.findAll({
+        order: [["id", "ASC"]],
+      });
     } catch (error) {
       throw new Error(
         `Error de Base de datos: error al obtener elementos: ${error.message}`

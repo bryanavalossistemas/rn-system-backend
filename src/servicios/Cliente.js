@@ -1,13 +1,18 @@
 import repositorioCliente from "../repositorios/Cliente.js";
 
 class ServicioCliente {
-  async crearCliente(nombre, telefono, ruc) {
+  async crearCliente(nombre, celular, ruc) {
     try {
-      const vendedorExiste = await repositorioCliente.obtenerPorRUC(ruc);
-      if (vendedorExiste) {
+      const vendedorConCelularExiste =
+        await repositorioCliente.obtenerPorCelular(celular);
+      if (vendedorConCelularExiste) {
+        throw new Error(`Ya existe un cliente con celular: ${celular}`);
+      }
+      const vendedorConRucExiste = await repositorioCliente.obtenerPorRUC(ruc);
+      if (vendedorConRucExiste) {
         throw new Error(`Ya existe un cliente con ruc: ${ruc}`);
       }
-      const nuevoCliente = { nombre, telefono, ruc };
+      const nuevoCliente = { nombre, celular, ruc };
       const clienteCreado = await repositorioCliente.agregar(nuevoCliente);
       return {
         ok: true,
@@ -38,14 +43,28 @@ class ServicioCliente {
     }
   }
 
-  async modificarClientePorId(id, nombre, telefono, ruc) {
+  async actualizarCliente(id, nombre, celular, ruc) {
     try {
-      const datosActualizados = { nombre, telefono, ruc };
-      return await repositorioCliente.actualizar(id, datosActualizados);
-    } catch (error) {
-      throw new Error(
-        `Error al actualizar el cliente con ID ${id}: ${error.message}`
+      const clienteConCelularExiste =
+        await repositorioCliente.obtenerPorCelular(celular);
+      if (clienteConCelularExiste && clienteConCelularExiste.id != id) {
+        throw new Error(`Ya existe un cliente con celular: ${celular}`);
+      }
+      const clienteConRucExiste = await repositorioCliente.obtenerPorRUC(ruc);
+      if (clienteConRucExiste && clienteConRucExiste.id != id) {
+        throw new Error(`Ya existe un cliente con ruc: ${ruc}`);
+      }
+      const datosActualizados = { nombre, celular, ruc };
+      const clienteActualizado = await repositorioCliente.actualizar(
+        id,
+        datosActualizados
       );
+      return {
+        ok: true,
+        message: clienteActualizado,
+      };
+    } catch (error) {
+      throw new Error(`Error al actualizar el cliente: ${error.message}`);
     }
   }
 

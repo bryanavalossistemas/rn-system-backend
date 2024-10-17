@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.post("/", ControladorVendedor.crearVendedor);
 router.get("/", ControladorVendedor.obtenerVendedores);
+router.put("/:id", ControladorVendedor.actualizarVendedor);
 router.get("/usuario/:id", ControladorVendedor.obtenerVendedorPorUsuarioId);
 router.get("/dni/:dni", ControladorVendedor.obtenerVendedorPorDNI);
 

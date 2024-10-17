@@ -3,16 +3,15 @@ import repositorioMarca from "../repositorios/Marca.js";
 class ServicioMarca {
   async crearMarca(nombre) {
     try {
-      const nombrenormalizado = nombre.trim().toLowerCase();
-      const marcaexiste = await repositorioMarca.obtenerPorNombre(nombrenormalizado);
-      if (marcaexiste){
-          throw new Error(`la marca ya existe con el nombre de: ${nombrenormalizado} `)
-      };
-      const nuevaMarca = { nombre :nombrenormalizado };
-      const marcacreada =await repositorioMarca.agregar(nuevaMarca);
+      const marcaExiste = await repositorioMarca.obtenerPorNombre(nombre);
+      if (marcaExiste) {
+        throw new Error(`Ya existe una marca con el nombre: ${nombre}`);
+      }
+      const nuevaMarca = { nombre };
+      const marcaCreada = await repositorioMarca.agregar(nuevaMarca);
       return {
-        ok:true,
-        message:marcacreada,
+        ok: true,
+        message: marcaCreada,
       };
     } catch (error) {
       throw new Error(`Error al crear la marca: ${error.message}`);
@@ -32,7 +31,7 @@ class ServicioMarca {
       const marca = await repositorioMarca.obtenerPorId(id);
       if (!marca) throw new Error("Marca no encontrada");
       return marca;
-    } catch (error) { 
+    } catch (error) {
       throw new Error(
         `Error al obtener la marca con ID ${id}: ${error.message}`
       );
@@ -41,27 +40,21 @@ class ServicioMarca {
 
   async actualizarMarca(id, nombre) {
     try {
-      const nombrenormalizado = nombre.trim().toLowerCase();
-      const marcaexiste = await repositorioMarca.obtenerPorNombre(nombrenormalizado);
-      if (marcaexiste){
-          throw new Error(`la marca ya existe con el nombre de: ${nombrenormalizado} `)
-      };  
-      const datosActualizados = { nombre: nombrenormalizado };
+      const marcaExiste = await repositorioMarca.obtenerPorNombre(nombre);
+      if (marcaExiste && marcaExiste.id != id) {
+        throw new Error(`Ya existe una marca con nombre: ${nombre}`);
+      }
+      const datosActualizados = { nombre };
       const marcaActualizada = await repositorioMarca.actualizar(
         id,
         datosActualizados
       );
-      if (!marcaActualizada)
-        throw new Error("Marca no encontrada para actualizar");
-      
       return {
-      ok: true,
-      message: marcaActualizada,
-      }
+        ok: true,
+        message: marcaActualizada,
+      };
     } catch (error) {
-      throw new Error(
-        `Error al actualizar la marca con ID ${id}: ${error.message}`
-      );
+      throw new Error(`Error al crear la marca: ${error.message}`);
     }
   }
 

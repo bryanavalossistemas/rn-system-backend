@@ -3,8 +3,12 @@ import servicioCliente from "../servicios/Cliente.js";
 class ControladorCliente {
   static async crearCliente(req, res) {
     try {
-      const { nombre, telefono, ruc } = req.body;
-      const nuevoCliente = await servicioCliente.crearCliente(nombre, telefono, ruc);
+      const { nombre, celular, ruc } = req.body;
+      const nuevoCliente = await servicioCliente.crearCliente(
+        nombre,
+        celular,
+        ruc
+      );
       res.status(201).json(nuevoCliente);
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -29,13 +33,13 @@ class ControladorCliente {
     }
   }
 
-  static async modificarClienteId(req, res) {
+  static async actualizarCliente(req, res) {
     try {
-      const { nombre, telefono, ruc } = req.body;
-      const clienteActualizado = await servicioCliente.modificarClientePorId(
+      const { nombre, celular, ruc } = req.body;
+      const clienteActualizado = await servicioCliente.actualizarCliente(
         req.params.id,
         nombre,
-        telefono,
+        celular,
         ruc
       );
       res.json(clienteActualizado);
@@ -46,7 +50,9 @@ class ControladorCliente {
 
   static async eliminarClienteporId(req, res) {
     try {
-      const clienteEliminado = await servicioCliente.eliminarClientePorId(req.params.id);
+      const clienteEliminado = await servicioCliente.eliminarClientePorId(
+        req.params.id
+      );
       res.json(clienteEliminado);
     } catch (error) {
       res.status(404).json({ message: error.message });

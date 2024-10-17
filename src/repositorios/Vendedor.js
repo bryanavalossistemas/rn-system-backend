@@ -19,7 +19,7 @@ class RepositorioVendedor extends RepositorioBase {
           usuario: vendedor.usuario.usuario,
           contrasenia: vendedor.usuario.contrasenia,
           dni: vendedor.dni,
-          telefono: vendedor.telefono,
+          celular: vendedor.celular,
         };
       });
       return res;
@@ -42,31 +42,20 @@ class RepositorioVendedor extends RepositorioBase {
 
   obtenerPorDNI = async (dni) => {
     try {
-      const vendedordni = await this.model.findOne({ where: { dni } });
-      if (!vendedordni) {
-        return null;
-      }
-
-      return vendedordni;
+      return await this.model.findOne({ where: { dni } });
     } catch (error) {
       throw new Error(
-        `Error de Base de datos: error al obtener el usuario con DNI: ${dni}: ${error.message}`
+        `Error de Base de datos: error al obtener el vendedor con DNI: ${dni}: ${error.message}`
       );
     }
   };
 
-
-  obtenerPorTelefono = async (telefono) => {
+  obtenerPorCelular = async (celular) => {
     try {
-      const vendedortelefono = await this.model.findOne({ where: { telefono } });
-      if (!vendedortelefono) {
-        return null;
-      }
-
-      return vendedortelefono;
+      return await this.model.findOne({ where: { celular } });
     } catch (error) {
       throw new Error(
-        `Error de Base de datos: error al obtener el usuario con telefono: ${telefono}: ${error.message}`
+        `Error de Base de datos: error al obtener el vendedor con celular: ${celular}: ${error.message}`
       );
     }
   };

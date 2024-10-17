@@ -3,19 +3,22 @@ import repositorioCategoria from "../repositorios/Categoria.js";
 class ServicioCategoria {
   async crearCategoria(nombre) {
     try {
-      const nombrenormalizado = nombre.trim().toLowerCase();
-      const categoriaexiste = await repositorioCategoria.obtenerPorNombre(nombrenormalizado);
-      if (categoriaexiste){
-          throw new Error(`la categoria ya existe con el nombre de: ${nombrenormalizado} `)
-      };
-      const nuevaCategoria = { nombre :nombrenormalizado };
-      const categoriacreada =await repositorioCategoria.agregar(nuevaCategoria);
+      const categoriaExiste = await repositorioCategoria.obtenerPorNombre(
+        nombre
+      );
+      if (categoriaExiste) {
+        throw new Error(`Ya existe una categoría con el nombre: ${nombre}`);
+      }
+      const nuevaCategoria = { nombre };
+      const categoriaCreada = await repositorioCategoria.agregar(
+        nuevaCategoria
+      );
       return {
-        ok:true,
-        message:categoriacreada,
+        ok: true,
+        message: categoriaCreada,
       };
     } catch (error) {
-      throw new Error(`Error al crear la categoria: ${error.message}`);
+      throw new Error(`Error al crear la categoría: ${error.message}`);
     }
   }
 
@@ -41,27 +44,23 @@ class ServicioCategoria {
 
   async actualizarCategoria(id, nombre) {
     try {
-      const nombrenormalizado = nombre.trim().toLowerCase();
-      const categoriaexiste = await repositorioCategoria.obtenerPorNombre(nombrenormalizado);
-      if (categoriaexiste){
-          throw new Error(`la categoria ya existe con el nombre de: ${nombrenormalizado} `)
-      };  
-      const datosActualizados = { nombre: nombrenormalizado };
+      const categoriaExiste = await repositorioCategoria.obtenerPorNombre(
+        nombre
+      );
+      if (categoriaExiste && categoriaExiste.id != id) {
+        throw new Error(`Ya existe una categoría con nombre: ${nombre}`);
+      }
+      const datosActualizados = { nombre };
       const categoriaActualizada = await repositorioCategoria.actualizar(
         id,
         datosActualizados
       );
-      if (!categoriaActualizada)
-        throw new Error("categoria no encontrada para actualizar");
-      
       return {
-      ok: true,
-      message: categoriaActualizada,
-      }
+        ok: true,
+        message: categoriaActualizada,
+      };
     } catch (error) {
-      throw new Error(
-        `Error al actualizar la categoria con ID ${id}: ${error.message}`
-      );
+      throw new Error(`Error al actualizar la categoría: ${error.message}`);
     }
   }
 

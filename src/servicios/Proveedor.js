@@ -1,17 +1,30 @@
 import repositorioProveedor from "../repositorios/Proveedor.js";
 
 class ServicioProveedor {
-  async crearProveedor(nombre, ruc, telefono, direccion) {
+  async crearProveedor(nombre, ruc, telefono, celular, direccion) {
     try {
-      const proveedorRUCExiste = await repositorioProveedor.obtenerPorRUC(ruc);
-      if (proveedorRUCExiste) {
+      const proveedorConNombreExiste =
+        await repositorioProveedor.obtenerPorNombre(nombre);
+      if (proveedorConNombreExiste) {
+        throw new Error(`Ya existe un proveedor con nombre: ${nombre}`);
+      }
+      const proveedorConRucExiste = await repositorioProveedor.obtenerPorRUC(
+        ruc
+      );
+      if (proveedorConRucExiste) {
         throw new Error(`Ya existe un proveedor con ruc: ${ruc}`);
       }
-      const proveedorTelefonoExiste = await repositorioProveedor.obtenerPorTelefono(telefono);
-      if (proveedorTelefonoExiste) {
-        throw new Error(`Ya existe un proveedor con el telefono: ${telefono}`);
+      const proveedorConTelefonoExiste =
+        await repositorioProveedor.obtenerPorTelefono(telefono);
+      if (proveedorConTelefonoExiste) {
+        throw new Error(`Ya existe un proveedor con teléfono: ${telefono}`);
       }
-      const nuevoProveedor = { nombre, ruc, telefono, direccion };
+      const proveedorConCelularExiste =
+        await repositorioProveedor.obtenerPorCelular(celular);
+      if (proveedorConCelularExiste) {
+        throw new Error(`Ya existe un proveedor con celular: ${celular}`);
+      }
+      const nuevoProveedor = { nombre, ruc, telefono, celular, direccion };
       const proveedorCreado = await repositorioProveedor.agregar(
         nuevoProveedor
       );
@@ -44,14 +57,40 @@ class ServicioProveedor {
     }
   }
 
-  async actualizarProveedor(id, nombre, ruc, telefono, direccion) {
-    try {      
-      const datosActualizados = { nombre, ruc, telefono, direccion };
-      return await repositorioProveedor.actualizar(id, datosActualizados);
-    } catch (error) {
-      throw new Error(
-        `Error al actualizar el proveedor con ID ${id}: ${error.message}`
+  async actualizarProveedor(id, nombre, ruc, telefono, celular, direccion) {
+    try {
+      const proveedorConNombreExiste =
+        await repositorioProveedor.obtenerPorNombre(nombre);
+      if (proveedorConNombreExiste && proveedorConNombreExiste.id != id) {
+        throw new Error(`Ya existe un proveedor con nombre: ${nombre}`);
+      }
+      const proveedorConRucExiste = await repositorioProveedor.obtenerPorRUC(
+        ruc
       );
+      if (proveedorConRucExiste && proveedorConRucExiste.id != id) {
+        throw new Error(`Ya existe un proveedor con ruc: ${ruc}`);
+      }
+      const proveedorConTelefonoExiste =
+        await repositorioProveedor.obtenerPorTelefono(telefono);
+      if (proveedorConTelefonoExiste && proveedorConTelefonoExiste.id != id) {
+        throw new Error(`Ya existe un proveedor con teléfono: ${telefono}`);
+      }
+      const proveedorConCelularExiste =
+        await repositorioProveedor.obtenerPorCelular(celular);
+      if (proveedorConCelularExiste && proveedorConCelularExiste.id != id) {
+        throw new Error(`Ya existe un proveedor con celular: ${celular}`);
+      }
+      const datosActualizados = { nombre, ruc, telefono, celular, direccion };
+      const proveedorActualizado = await repositorioProveedor.actualizar(
+        id,
+        datosActualizados
+      );
+      return {
+        ok: true,
+        message: proveedorActualizado,
+      };
+    } catch (error) {
+      throw new Error(`Error al crear el proveedor: ${error.message}`);
     }
   }
 

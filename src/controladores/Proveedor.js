@@ -1,11 +1,16 @@
 import servicioProveedor from "../servicios/Proveedor.js";
 
-
 class ControladorProveedor {
   static async crearProveedor(req, res) {
     try {
-      const { nombre, ruc, telefono, direccion} = req.body;
-      const nuevoProveedor = await servicioProveedor.crearProveedor(nombre, ruc, telefono, direccion);
+      const { nombre, ruc, telefono, celular, direccion } = req.body;
+      const nuevoProveedor = await servicioProveedor.crearProveedor(
+        nombre,
+        ruc,
+        telefono,
+        celular,
+        direccion
+      );
       res.status(201).json(nuevoProveedor);
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -34,12 +39,13 @@ class ControladorProveedor {
 
   static async actualizarProveedor(req, res) {
     try {
-      const {nombre, ruc, telefono, direccion } = req.body;
+      const { nombre, ruc, telefono, celular, direccion } = req.body;
       const ProveedorActualizado = await servicioProveedor.actualizarProveedor(
         req.params.id,
-        nombre, 
-        ruc, 
-        telefono, 
+        nombre,
+        ruc,
+        telefono,
+        celular,
         direccion
       );
       res.json(ProveedorActualizado);

@@ -22,6 +22,10 @@ const Proveedor = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    celular: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     direccion: {
       type: DataTypes.STRING,
       allowNull: false,

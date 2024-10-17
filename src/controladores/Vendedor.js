@@ -3,13 +3,13 @@ import servicioVendedor from "../servicios/Vendedor.js";
 class ControladorVendedor {
   static async crearVendedor(req, res) {
     try {
-      const { nombre, usuario, contrasenia, dni, telefono } = req.body;
+      const { nombre, usuario, contrasenia, dni, celular } = req.body;
       const nuevoVendedor = await servicioVendedor.crearVendedor(
         nombre,
         usuario,
         contrasenia,
         dni,
-        telefono
+        celular
       );
       res.status(201).json(nuevoVendedor);
     } catch (error) {
@@ -23,6 +23,23 @@ class ControladorVendedor {
       res.json(vendedores);
     } catch (error) {
       res.status(500).json({ message: error.message });
+    }
+  }
+
+  static async actualizarVendedor(req, res) {
+    try {
+      const { nombre, usuario, contrasenia, dni, celular } = req.body;
+      const VendedorActualizado = await servicioVendedor.actualizarVendedor(
+        req.params.id,
+        nombre,
+        usuario,
+        contrasenia,
+        dni,
+        celular
+      );
+      res.json(VendedorActualizado);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
     }
   }
 
